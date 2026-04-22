@@ -1,7 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import Hero from './components/Hero'
 
-// Pages temporaires juste pour tester la navigation
+// Composant temporaire pour les pages pas encore créées
 const PageTemp = ({ titre }) => (
   <div className="pt-32 px-8 text-center">
     <h1 className="font-condensed font-black text-6xl uppercase text-red-sc">{titre}</h1>
@@ -14,7 +15,9 @@ export default function App() {
       <Navbar />
       <main className="flex-1">
         <Routes>
-          <Route path="/"            element={<PageTemp titre="Accueil" />} />
+          {/* L'accueil affiche le Hero pour l'instant
+              On ajoutera les autres sections (StatsBand, Concept...) ensuite */}
+          <Route path="/" element={<Hero />} />
           <Route path="/application" element={<PageTemp titre="Notre Application" />} />
           <Route path="/offres"      element={<PageTemp titre="Nos Offres" />} />
           <Route path="/contact"     element={<PageTemp titre="Contact" />} />
