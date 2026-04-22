@@ -1,6 +1,6 @@
 const stats = [
   { number: '30J',  label: 'Essai gratuit' },
-  { number: '2',    label: 'Profils — Sportif & Coach' },
+  { number: '12',    label: 'Profils — Sportif & Coach' },
   { number: '24/7', label: 'Disponibilité' },
   { number: '100%', label: 'Auto-évaluation' },
 ]
@@ -8,7 +8,7 @@ const stats = [
 export default function StatsBand() {
   return (
     // Conteneur centré avec les stats en ligne
-    <div className="bg-navy py-8 flex items-center justify-center gap-6 flex-wrap">
+    <div className="bg-transparent py-8 flex items-center justify-center gap-6 flex-wrap">
 
       {stats.map(({ number, label }, i) => (
         <div key={i} className="flex items-center gap-6">
