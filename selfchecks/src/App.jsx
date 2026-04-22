@@ -1,9 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import StatsBand from './components/StatsBand'
-import Concept from './components/Concept'
-import OffresApercu from './components/OffresApercu'
+import Accueil from './pages/Accueil'
 
 // Composant temporaire pour les pages pas encore créées
 const PageTemp = ({ titre }) => (
@@ -20,14 +17,7 @@ export default function App() {
         <Routes>
           {/* L'accueil affiche le Hero pour l'instant
               On ajoutera les autres sections (StatsBand, Concept...) ensuite */}
-          <Route path="/" element=
-            {<>
-              <Hero />
-              <StatsBand />
-              <Concept />
-              <OffresApercu />
-            </>} 
-            />
+          <Route path="/" element={<Accueil />} />
           <Route path="/application" element={<PageTemp titre="Notre Application" />} />
           <Route path="/offres"      element={<PageTemp titre="Nos Offres" />} />
           <Route path="/contact"     element={<PageTemp titre="Contact" />} />

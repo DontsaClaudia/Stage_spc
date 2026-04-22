@@ -50,17 +50,17 @@ export default function OffresApercu() {
       </div>
 
       {/* Grille des 4 offres */}
-      <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-px bg-red-sc/15">
+      <div className="max-w-5xl mx-auto grid grid-cols-4 md:grid-cols-4 gap-px bg-red-sc/10">
         {offres.map(({ tag, name, price, desc, featured }, i) => (
           <div
             key={i}
-            className={`reveal reveal-d${i} flex flex-col gap-4 p-8 transition-colors duration-300 ${
-              featured ? 'bg-red-sc hover:bg-red-dark' : 'bg-ink hover:bg-[#0d1520]'
+            className={`reveal reveal-d${i} flex flex-col gap-4 p-10 min-h-[300px] transition-colors duration-10000 ${
+             featured ? 'bg-red-sc hover:bg-red-dark' : 'bg-ink/60 hover:bg-navy border border-white/20'
             }`}
           >
             {/* Tag */}
-            <span className={`text-[0.68rem] tracking-widest uppercase font-semibold ${
-              featured ? 'text-white/70' : 'text-red-sc'
+            <span className={`text-[0.78rem] tracking-widest uppercase font-semibold ${
+              featured ? 'text-white/60' : 'text-red-sc'
             }`}>
               {tag}
             </span>
