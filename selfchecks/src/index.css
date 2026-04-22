@@ -1,111 +1,75 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+/* Ces 3 lignes injectent Tailwind dans le projet :
+   - base     : reset CSS de base (marges, paddings à 0, etc.)
+   - components : classes de composants réutilisables
+   - utilities  : toutes les classes utilitaires (bg-, text-, flex-, etc.) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
+/* @layer base : styles appliqués globalement à toute la page */
+@layer base {
+  html { scroll-behavior: smooth; } /* Défilement fluide lors des ancres */
+  body {
+    background-color: #080c14; /* Fond noir profond */
+    color: #f8f6f2;            /* Texte blanc cassé par défaut */
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden; /* Empêche le scroll horizontal non voulu */
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+/* @layer utilities : on crée une classe Tailwind personnalisée réutilisable */
+@layer utilities {
+  /* clip-skew : découpe le bouton en forme de parallélogramme (effet sport) */
+  .clip-skew {
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
   }
 }
 
-body {
-  margin: 0;
+/* ── ANIMATIONS DE RÉVÉLATION AU SCROLL ── */
+/* État initial : élément invisible et décalé vers le bas */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
+/* État final : quand le JS ajoute la classe .visible, l'élément apparaît */
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+/* Délais pour décaler l'apparition des éléments les uns après les autres */
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+/* ── ANIMATION HERO (apparition au chargement de la page) ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
+/* Deux vitesses : normale et lente (pour le CTA qui arrive après le titre) */
+.animate-fadeup      { animation: fadeUp 0.9s 0.3s both; }
+.animate-fadeup-slow { animation: fadeUp 0.9s 0.7s both; }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+/* ── ANIMATION DE LA LIGNE DE SCROLL ── */
+@keyframes lineGrow {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50%       { transform: scaleY(0.4); opacity: 0.3; }
 }
+.animate-line { animation: lineGrow 1.8s infinite; }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/* ── FILIGRANE (watermark) EN ARRIÈRE-PLAN DU CTA ── */
+/* Texte géant semi-transparent derrière le bouton "Prêt à vous dépasser" */
+.watermark {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 18vw;           /* Taille relative à la largeur de l'écran */
+  color: rgba(227,6,19,0.04); /* Rouge très transparent */
+  white-space: nowrap;
+  pointer-events: none;      /* Ne bloque pas les clics */
+  letter-spacing: -0.03em;
 }

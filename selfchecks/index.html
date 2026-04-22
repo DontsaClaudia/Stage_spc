@@ -1,13 +1,20 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>selfchecks</title>
+    <title>Self Checks — Évaluez-vous. Défiez-vous. Dépassez-vous.</title>
+
+    <!-- Import des polices Google Fonts utilisées dans le projet :
+         - Barlow Condensed : titres (font-condensed dans Tailwind)
+         - Barlow : texte courant (font-body dans Tailwind) -->
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <!-- Point d'entrée React : tout le site sera injecté ici par React -->
     <div id="root"></div>
+
+    <!-- Script principal Vite/React — type="module" pour les imports ES6 -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
