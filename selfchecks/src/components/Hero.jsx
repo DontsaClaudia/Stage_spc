@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     // Section pleine hauteur (100vh) divisée en 3 colonnes égales
     // overflow-hidden : empêche les images de déborder lors du zoom au hover
-    <section className="relative min-h-screen grid grid-cols-3 overflow-hidden">
+    <section className="relative h-[90vh] grid grid-cols-3 overflow-hidden">
 
       {/* ── Les 3 panels ── */}
       {/* On boucle sur le tableau panels pour éviter de répéter 3 fois le même code */}
@@ -22,7 +22,7 @@ export default function Hero() {
 
           {/* Placeholder dégradé — à remplacer plus tard par :
               <img src="/images/athlete1.jpg" className="w-full h-full object-cover" /> */}
-          <div className={`w-full h-full min-h-screen bg-gradient-to-br ${bg} flex items-end p-8 transition-transform duration-700 group-hover:scale-105`}>
+          <div className={`w-full h-full bg-gradient-to-br ${bg} flex items-end p-8 transition-all duration-500 group-hover:scale-105 group-hover:brightness-110 group-hover:-translate-y-2`}>
             {/* group-hover:scale-105 : zoom léger sur l'image au survol */}
             <span className="font-condensed font-bold text-xs tracking-widest uppercase text-white/20">
               {label}
@@ -48,7 +48,7 @@ export default function Hero() {
         {/* clamp() : taille de police fluide qui s'adapte à la largeur de l'écran */}
         <h1
           className="font-condensed font-black uppercase leading-none"
-          style={{ fontSize: 'clamp(4rem, 9vw, 9rem)', textShadow: '0 4px 40px rgba(0,0,0,0.85)' }}
+          style={{ fontSize: 'clamp(2.5rem, 6vw, 6rem)', textShadow: '0 4px 40px rgba(0,0,0,0.85)' }}
         >
           Self
           <span className="block text-red-sc">Checks</span>
@@ -56,7 +56,7 @@ export default function Hero() {
 
         <p
           className="mt-4 font-condensed font-semibold tracking-[0.25em] uppercase text-cream/80"
-          style={{ fontSize: 'clamp(0.9rem, 1.8vw, 1.35rem)', textShadow: '0 2px 20px rgba(0,0,0,0.9)' }}
+          style={{ fontSize: 'clamp(0.7rem, 1.2vw, 1rem)', textShadow: '0 2px 20px rgba(0,0,0,0.9)' }}
         >
           <span className="text-red-sc">Évaluez-vous</span>
           &nbsp;·&nbsp;Défiez-vous&nbsp;·&nbsp;Dépassez-vous
