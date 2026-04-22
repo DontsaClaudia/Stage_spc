@@ -4,22 +4,20 @@ export default function Concept() {
   return (
     <section className="grid md:grid-cols-2 min-h-[500px]">
 
-      {/* ── Colonne gauche : photo avec effet surélèvement au hover ──
-          group : permet de déclencher les effets hover sur les enfants
-          overflow-hidden : évite que l'image déborde lors du zoom */}
-      <div className="relative overflow-hidden group">
+      {/* ── Colonne gauche : photo athlète ── */}
+      <div className="relative overflow-hidden group min-h-[500px]">
 
-        {/* Placeholder — transition-transform et group-hover:scale-105 :
-            zoom léger au survol
-            group-hover:-translate-y-2 : remonte légèrement = effet surélèvement */}
-        <div className="w-full h-full min-h-[500px] bg-gradient-to-br from-navy to-ink flex items-center justify-center transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2 group-hover:brightness-110">
-          <span className="font-condensed font-bold text-xs tracking-widest uppercase text-white/20">
-            Photo athlète — à remplacer
-          </span>
-        </div>
+        {/* L'image remplit toute la colonne grâce à absolute inset-0
+            object-cover : recadre sans déformer
+            group-hover : effet surélèvement au survol */}
+        <img
+          src="/images/concept2.webp"
+          alt="Athlète Self Checks"
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2 group-hover:brightness-110"
+        />
 
         {/* Bordure rouge à droite */}
-        <div className="absolute top-0 right-0 bottom-0 w-1 bg-red-sc" />
+        <div className="absolute top-0 right-0 bottom-0 w-1 bg-red-sc z-10" />
       </div>
 
       {/* ── Colonne droite : texte ── */}
@@ -35,7 +33,7 @@ export default function Concept() {
           entraînement<br />
           <span className="text-red-sc">un succès</span>
         </h2>
-        <p className="text-muted text-sm leading-relaxed mb-8 max-w-md">
+        <p className="text-muted text-sm leading-relaxed mb-10 max-w-md">
           Rejoignez notre communauté de sportifs passionnés et utilisez notre
           application pour booster votre entraînement. Auto-évaluez-vous après
           chaque séance et atteignez vos objectifs plus rapidement.

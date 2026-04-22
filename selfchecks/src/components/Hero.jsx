@@ -4,25 +4,33 @@ import { Link } from 'react-router-dom'
 // bg : dégradé temporaire en attendant les vraies photos
 // label : texte indicatif pour savoir quelle photo mettre ici plus tard
 const panels = [
-  { label: 'Athlète — Sprint', bg: 'from-[#2a1f2e] to-[#1a0a14]' },
-  { label: 'Athlète — Trail',  bg: 'from-[#1a2f1a] to-[#0d1e0d]' },
-  { label: 'Athlète — Vélo',   bg: 'from-[#1a1a3e] to-[#0d0d2e]' },
+  { label: 'Athlète — Sprint', img: '/images/athlete1.avif' },
+  { label: 'Athlète — Trail',  img: '/images/athlete2.avif' },
+  { label: 'Athlète — Vélo',   img: '/images/athlete3.avif' },
 ]
+
 
 export default function Hero() {
   return (
     // Section pleine hauteur (100vh) divisée en 3 colonnes égales
     // overflow-hidden : empêche les images de déborder lors du zoom au hover
-    <section className="relative h-[90vh] grid grid-cols-3 overflow-hidden">
+    <section className="relative h-[90vh] grid grid-cols-3 overflow-hidden mt-[72px]">
 
       {/* ── Les 3 panels ── */}
       {/* On boucle sur le tableau panels pour éviter de répéter 3 fois le même code */}
-      {panels.map(({ label, bg }, i) => (
+      {panels.map(({ label, img }, i) => (
         <div key={i} className="relative overflow-hidden group">
 
-          {/* Placeholder dégradé — à remplacer plus tard par :
-              <img src="/images/athlete1.jpg" className="w-full h-full object-cover" /> */}
-          <div className={`w-full h-full bg-gradient-to-br ${bg} flex items-end p-8 transition-all duration-500 group-hover:scale-105 group-hover:brightness-110 group-hover:-translate-y-2`}>
+            <img
+                src={img}
+                alt={label}
+                className="w-full h-full object-cover min-h-[90vh] transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2 group-hover:brightness-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent pointer-events-none" />
+                {i < 2 && (
+            <div className="absolute top-0 right-0 bottom-0 w-0.5 bg-red-sc z-10" />
+                )}
+          <div className={`w-full h-full bg-gradient-to-br ${img} flex items-end p-8 transition-all duration-500 group-hover:scale-105 group-hover:brightness-110 group-hover:-translate-y-2`}>
             {/* group-hover:scale-105 : zoom léger sur l'image au survol */}
             <span className="font-condensed font-bold text-xs tracking-widest uppercase text-white/20">
               {label}
@@ -94,4 +102,6 @@ export default function Hero() {
 
     </section>
   )
+  
 }
+

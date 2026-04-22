@@ -7,13 +7,12 @@ const stats = [
 
 export default function StatsBand() {
   return (
-    // Conteneur centré avec les stats en ligne
-    <div className="bg-transparent py-8 flex items-center justify-center gap-6 flex-wrap">
+    // bg-ink/40 : noir semi-transparent comme la navbar
+    // backdrop-blur-md : flou derrière pour l'effet verre
+    <div className="bg-transparent/90 backdrop-blur-md py-8 flex items-center justify-center gap-6 flex-wrap animate-fadeup-slow">
 
       {stats.map(({ number, label }, i) => (
         <div key={i} className="flex items-center gap-6">
-
-          {/* Chaque stat dans un parallélogramme rouge */}
           <div
             className="bg-red-sc text-white text-center px-8 py-4"
             style={{ clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)' }}
@@ -25,12 +24,9 @@ export default function StatsBand() {
               {label}
             </div>
           </div>
-
-          {/* Séparateur discret entre les stats */}
           {i < stats.length - 1 && (
-            <div className="w-px h-8 bg-white/10" />
+            <div className="w-px h-8 bg-white/20" />
           )}
-
         </div>
       ))}
 

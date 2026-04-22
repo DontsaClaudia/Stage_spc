@@ -3,6 +3,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import StatsBand from './components/StatsBand'
 import Concept from './components/Concept'
+import OffresApercu from './components/OffresApercu'
 
 // Composant temporaire pour les pages pas encore créées
 const PageTemp = ({ titre }) => (
@@ -24,6 +25,7 @@ export default function App() {
               <Hero />
               <StatsBand />
               <Concept />
+              <OffresApercu />
             </>} 
             />
           <Route path="/application" element={<PageTemp titre="Notre Application" />} />
