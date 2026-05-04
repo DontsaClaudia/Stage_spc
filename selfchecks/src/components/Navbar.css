@@ -1,0 +1,84 @@
+/* ── NAVBAR ── */
+
+/* Fond transparent par défaut */
+.navbar-wrap {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+.navbar-wrap.scrolled {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+/* Lien nav */
+.nav-btn {
+  color: #ffffff;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6), 0 0px 20px rgba(0,0,0,0.4);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Hover : zone rouge qui apparaît */
+.nav-btn:hover {
+  background: rgba(227, 6, 19, 0.2);
+  border-color: rgba(227, 6, 19, 0.5);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(227, 6, 19, 0.15);
+}
+
+/* Pressé : enfoncement */
+.nav-btn:active,
+.nav-btn.pressed {
+  transform: translateY(1px) scale(0.97);
+  background: rgba(227, 6, 19, 0.12);
+  border-color: rgba(227, 6, 19, 0.4);
+  box-shadow: 0 1px 4px rgba(227, 6, 19, 0.2);
+}
+
+/* Actif : contour rouge au lieu du fond plein */
+.nav-btn.active-link {
+  background: rgba(227, 6, 19, 0.85);
+  border-color: #E30613;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(227, 6, 19, 0.35);
+}
+
+.nav-btn.active-link:hover {
+  background: #b30000;
+  border-color: #b30000;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Ripple effect */
+.nav-btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(227, 6, 19, 0.25);
+  transform: scale(0);
+  animation: ripple-anim 0.5s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-anim {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

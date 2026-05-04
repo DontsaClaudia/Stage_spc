@@ -1,0 +1,99 @@
+/* ── CARTE OFFRE ── */
+.offre-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+  cursor: auto;
+  
+}
+
+.offre-card p {
+  font-size: 0.95rem ;
+  line-height: 1.6;
+}
+
+.offre-card span {
+  font-size: 0.85rem ;
+}
+
+/* Surélèvement au hover */
+.offre-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Glow rouge pour la carte featured */
+.offre-card.featured {
+  background: rgba(227, 6, 19, 0.85);
+  border-color: rgba(227, 6, 19, 0.6);
+  box-shadow: 0 0 30px rgba(227, 6, 19, 0.3);
+}
+
+.offre-card.featured:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 20px 40px rgba(227, 6, 19, 0.4),
+    0 0 60px rgba(227, 6, 19, 0.3),
+    0 0 100px rgba(227, 6, 19, 0.15);
+  animation: glow-pulse 1.5s ease-in-out infinite;
+}
+
+/* Glow navy pour les autres cartes */
+.offre-card:not(.featured):hover {
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(15, 33, 64, 0.6),
+    0 0 80px rgba(15, 33, 64, 0.2);
+  animation: glow-pulse-navy 1.5s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 20px 40px rgba(227,6,19,0.4), 0 0 60px rgba(227,6,19,0.3); }
+  50%       { box-shadow: 0 20px 60px rgba(227,6,19,0.6), 0 0 100px rgba(227,6,19,0.4); }
+}
+
+@keyframes glow-pulse-navy {
+  0%, 100% { box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 40px rgba(15,33,64,0.5); }
+  50%       { box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 80px rgba(15,33,64,0.7); }
+}
+
+/* Reflet lumineux en haut de la carte */
+.offre-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+}
+
+/* Shimmer au hover */
+.offre-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.offre-card:hover::after {
+  opacity: 1;
+}
+
+.offre-card a {
+  position: relative;
+  z-index: 10;
+  display: block;
+  cursor: pointer;
+}
