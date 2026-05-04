@@ -77,23 +77,47 @@
   background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
 }
 
-/* Shimmer au hover */
-.offre-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
-.offre-card:hover::after {
-  opacity: 1;
-}
-
 .offre-card a {
   position: relative;
   z-index: 10;
   display: block;
   cursor: pointer;
+}
+
+/* ── SPOTLIGHT (radial gradient qui suit la souris) ── */
+.card-spotlight {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: radial-gradient(
+    280px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.07),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.offre-card:hover .card-spotlight {
+  opacity: 1;
+}
+
+.offre-card.featured .card-spotlight {
+  background: radial-gradient(
+    280px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.12),
+    transparent 65%
+  );
+}
+
+/* ── ICÔNE animée au hover de la carte ── */
+.card-icon {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+.offre-card:hover .card-icon {
+  transform: scale(1.15) rotate(-8deg);
 }

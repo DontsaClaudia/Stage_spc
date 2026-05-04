@@ -59,6 +59,14 @@
 }
 .animate-line { animation: lineGrow 1.8s infinite; }
 
+/* ── ANIMATIONS INDICATEUR SCROLL (chevrons centré dans le Hero) ── */
+@keyframes scrollChevron {
+  0%, 100% { opacity: 0.35; transform: translateY(0); }
+  50%       { opacity: 1;    transform: translateY(5px); }
+}
+.animate-scroll-chevron-1 { animation: scrollChevron 1.4s ease-in-out infinite; }
+.animate-scroll-chevron-2 { animation: scrollChevron 1.4s ease-in-out 0.25s infinite; }
+
 /* ── FILIGRANE (watermark) EN ARRIÈRE-PLAN DU CTA ── */
 /* Texte géant semi-transparent derrière le bouton "Prêt à vous dépasser" */
 .watermark {

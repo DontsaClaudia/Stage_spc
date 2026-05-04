@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
-import useReveal from '../hooks/useReveal'
 import Hero from '../components/Hero'
 import Concept from '../components/Concept'
 import OffresApercu from '../components/OffresApercu'
+import CtaBand from '../components/CtaBand'
 
 export default function Accueil() {
-  useReveal()
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
   return (
@@ -13,6 +12,7 @@ export default function Accueil() {
       <Hero />
       <Concept />
       <OffresApercu />
+      <CtaBand />
     </>
   )
 }

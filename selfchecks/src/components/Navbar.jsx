@@ -77,7 +77,7 @@ return (
         <img
           src="/images/logo_1.png"
           alt="Self Checks"
-          className="w-12 w-auto transition-all duration-300 group-hover:scale-105 drop-shadow-lg"
+          className="w-12 h-auto transition-all duration-300 group-hover:scale-105 drop-shadow-lg"
         />
       </Link>
     </div>

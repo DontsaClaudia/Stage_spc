@@ -54,23 +54,31 @@ export default function Hero() {
       </div>
 
       {/* ── Boutons CTA ── */}
-      <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 flex gap-3 animate-fadeup-slow pointer-events-auto">
-        <Link
-          to="/offres"
-          className="clip-skew bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-3.5 transition-all duration-200 hover:-translate-y-0.5 no-underline"
-        >
-          Découvrir l'offre
-        </Link>
-        <Link
-          to="/application"
-          className="clip-skew border-2 border-white/50 hover:border-white text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-3.5 transition-all duration-200 hover:-translate-y-0.5 no-underline"
-        >
-          Notre Application
-        </Link>
-      </div>
+    <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 flex gap-3 animate-fadeup-slow pointer-events-auto">
+      
+      {/* Bouton principal — essai gratuit bien visible */}
+      <Link
+        to="/offres"
+        className="relative overflow-hidden bg-red-sc hover:bg-red-dark text-white font-condensed font-bold tracking-widest uppercase px-10 py-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-red-sc/50 no-underline rounded-sm group"
+        style={{ fontSize: 'clamp(0.85rem, 1.2vw, 1rem)' }}
+      >
+        {/* Shimmer au hover */}
+        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
+        🎁 Essayer gratuitement — 30 jours offerts
+      </Link>
+
+      {/* Bouton secondaire — notre application */}
+      <Link
+        to="/application"
+        className="border-2 border-white/50 hover:border-white text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:-translate-y-0.5 no-underline rounded-sm"
+      >
+        Notre Application
+      </Link>
+
+    </div>
 
 {/* ── Stats intégrées en bas du Hero ── */}
-<div className="absolute bottom-6 left-0 right-0 z-20 flex items-center justify-center gap-4 px-8">
+<div className="absolute bottom-10 left-0 right-0 z-20 flex items-center justify-center gap-4 px-8">
   {stats.map(({ number, label, img }, i) => (
     <div
       key={i}
@@ -95,13 +103,15 @@ export default function Hero() {
   ))}
 </div>
 
-      {/* ── Indicateur scroll ── */}
-      <div className="absolute bottom-24 right-8 z-20 flex flex-col items-center gap-2">
-        <div className="w-px h-10 bg-gradient-to-b from-red-sc to-transparent animate-line" />
-        <span className="text-white/30 text-[0.6rem] tracking-[0.2em] uppercase"
-              style={{ writingMode: 'vertical-rl' }}>
-          Scroll
-        </span>
+      {/* ── Indicateur scroll centré ── */}
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center pointer-events-none">
+        <span className="text-white/25 text-[0.5rem] tracking-[0.25em] uppercase mb-0.5">Scroll</span>
+        <svg className="w-5 h-5 text-white/50 animate-scroll-chevron-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+        </svg>
+        <svg className="w-5 h-5 text-white/25 -mt-2.5 animate-scroll-chevron-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
 
     </section>
