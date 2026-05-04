@@ -1,0 +1,139 @@
+/* ── HERO TITRE ANIMÉ ── */
+/* Chaque lettre apparaît une par une */
+.letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px) rotate(5deg);
+  animation: letterIn 0.5s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes letterIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* ── TIMELINE ── */
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(227, 6, 19, 0.15);
+  transform: translateX(-50%);
+}
+
+.timeline-progress {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  background: #E30613;
+  transform: translateX(-50%);
+  height: 0%;
+  transition: height 1s ease;
+}
+
+.timeline-progress.active {
+  height: 100%;
+}
+
+.timeline-step {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: all 0.6s ease;
+}
+
+.timeline-step.right {
+  transform: translateX(40px);
+}
+
+.timeline-step.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── CARTE VIDEO ── */
+.video-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.video-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(227, 6, 19, 0.4);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(227,6,19,0.15);
+}
+
+.video-card .play-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+  transition: background 0.3s;
+}
+
+.video-card:hover .play-btn {
+  background: rgba(227, 6, 19, 0.2);
+}
+
+.play-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(227, 6, 19, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  box-shadow: 0 0 30px rgba(227,6,19,0.5);
+}
+
+.video-card:hover .play-icon {
+  transform: scale(1.1);
+  box-shadow: 0 0 50px rgba(227,6,19,0.7);
+}
+
+/* ── COMPTEURS ANIMÉS ── */
+.counter {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── COMING SOON ── */
+.coming-soon {
+  position: relative;
+  border: 2px dashed rgba(227, 6, 19, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.coming-soon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(227,6,19,0.05) 0%, transparent 50%);
+  animation: shimmerBg 3s infinite;
+}
+
+@keyframes shimmerBg {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Pulse sur le badge coming soon */
+.pulse-badge {
+  animation: pulseBadge 2s infinite;
+}
+
+@keyframes pulseBadge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(227,6,19,0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(227,6,19,0); }
+}

@@ -135,7 +135,7 @@ export default function OffresApercu() {
           alt="fond"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-navy/60" />
+        <div className="absolute inset-0 bg-navy/40" />
       </div>
 
       {/* ── Contenu ── */}

@@ -3,17 +3,20 @@ import { motion } from 'framer-motion'
 
 export default function CtaBand() {
   return (
-    <section className="relative py-24 px-8 overflow-hidden text-center">
-
-      {/* ── Image de fond ── */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/images/athlete3.avif"
-          alt="fond"
-          className="w-full h-full object-cover"
+   <section className="relative min-h-[500px] py-24 px-8 overflow-hidden text-center">
+  {/* ── Vidéo de fond ── */}
+  <div className="absolute inset-0 z-0 overflow-hidden">
+        <video
+        src="/images/selfchecks1.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full"
+        style={{ objectFit: 'cover', objectPosition: 'center top' }}
         />
-        <div className="absolute inset-0 bg-ink/80" />
-      </div>
+    <div className="absolute inset-0 bg-ink/40" />
+  </div>
 
       {/* ── Filigrane texte en arrière plan ── */}
       <span className="watermark select-none">SELF CHECKS</span>

@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Accueil from './pages/Accueil'
+import Application from './pages/Application'
 
 const PageTemp = ({ titre }) => (
   <div className="pt-32 px-8 text-center">
@@ -16,7 +17,7 @@ export default function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/"            element={<Accueil />} />
-          <Route path="/application" element={<PageTemp titre="Notre Application" />} />
+          <Route path="/application" element={<Application />} />
           <Route path="/offres"      element={<PageTemp titre="Nos Offres" />} />
           <Route path="/contact"     element={<PageTemp titre="Contact" />} />
           <Route path="/blog"        element={<PageTemp titre="Blog" />} />
