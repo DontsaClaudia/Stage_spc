@@ -131,7 +131,7 @@ export default function OffresApercu() {
       {/* ── Image de fond ── */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/images/athlete2.avif"
+          src="/images/offre.jpg"
           alt="fond"
           className="w-full h-full object-cover"
         />

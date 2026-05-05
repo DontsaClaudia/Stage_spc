@@ -69,7 +69,7 @@ export default function Concept() {
         className="relative overflow-hidden group min-h-[550px]"
       >
         <img
-          src="/images/concept2.webp"
+          src="/images/coaching.jpg"
           alt="Athlète Self Checks"
           className="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:brightness-110"
         />

@@ -27,9 +27,9 @@ export default function Footer() {
           {/* Réseaux sociaux */}
           <div className="flex gap-3 mt-6">
             {[
-              { label: 'in', href: '#' },
-              { label: 'f',  href: '#' },
-              { label: 'ig', href: '#' },
+              { label: 'in', href: 'https://www.linkedin.com/company/self-checks/' },
+              { label: 'f',  href: 'https://www.facebook.com/people/Self-checks/100092513882627/' },
+              { label: 'ig', href: 'https://www.instagram.com/self_checks?igshid=MWQ2ODkyMjM%3D' },
             ].map(({ label, href }) => (
               <a
                 key={label}

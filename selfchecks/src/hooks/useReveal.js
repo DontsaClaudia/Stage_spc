@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 
 export default function useReveal() {
   useEffect(() => {
-    // Petit délai pour laisser le DOM se charger complètement
     const timer = setTimeout(() => {
       const els = document.querySelectorAll('.reveal')
 
@@ -11,15 +10,16 @@ export default function useReveal() {
           entries.forEach((e) => {
             if (e.isIntersecting) {
               e.target.classList.add('visible')
-              // On ne fait plus unobserve — l'élément reste toujours visible
+              // On arrête d'observer — l'élément reste visible pour toujours
+              observer.unobserve(e.target)
             }
           })
         },
-        { threshold: 0.05 } // réduit à 5% pour déclencher plus facilement
+        { threshold: 0.1 }
       )
 
       els.forEach((el) => observer.observe(el))
-    }, 100)
+    }, 200)
 
     return () => clearTimeout(timer)
   }, [])

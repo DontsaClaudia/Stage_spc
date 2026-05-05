@@ -35,8 +35,8 @@
 }
 /* État final : quand le JS ajoute la classe .visible, l'élément apparaît */
 .reveal.visible {
-  opacity: 1;
-  transform: none;
+  opacity: 1 !important;
+  transform: none !important;
 }
 /* Délais pour décaler l'apparition des éléments les uns après les autres */
 .reveal-d1 { transition-delay: 0.1s; }

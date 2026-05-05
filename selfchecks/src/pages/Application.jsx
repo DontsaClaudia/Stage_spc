@@ -153,21 +153,26 @@ export default function Application() {
   return (
     <>
       {/* ── HERO ── */}
-      <section className="relative min-h-[60vh] flex flex-col items-center justify-center text-center px-8 overflow-hidden">
+      <section className="relative min-h-[100vh] flex flex-col items-center justify-center text-center px-8 overflow-hidden">
         {/* Fond avec image */}
         <div className="absolute inset-0 z-0">
-          <img
-            src="/images/athlete4.avif"
-            alt="fond"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-ink/75" />
+          <video
+            src="/images/starting.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: 'center top' }}
+            />
+            
+          <div className="absolute inset-0 bg-ink/50" />
         </div>
 
         {/* Contenu */}
         <div className="relative z-10 pt-24">
-          <p className="text-[0.95rem] tracking-[0.3em] uppercase text-red-sc mb-4">
-            Découvrez
+          <p className="font-bold text-x tracking-[0.3em] uppercase text-red-sc mb-4">
+                 Découvrez
           </p>
           {/* Titre avec lettres animées */}
           <h1
@@ -177,7 +182,8 @@ export default function Application() {
             <AnimatedTitle text="Notre" className="block text-cream" />
             <AnimatedTitle text="Application" className="block text-red-sc" />
           </h1>
-          <p className="text-[0.90rem] max-w-2xl mx-auto leading-relaxed text-sm">
+          <p className="text-muted max-w-3xl mx-auto leading-relaxed text-base mb-20"
+            style={{ fontSize: 'clamp(1.25rem, 1.5vw, 1.25rem)' }}>
             Notre application est conçue pour aider les sportifs de tous niveaux à évaluer 
             leur performance sportive en répondant à un questionnaire d'auto-évaluation 
             après chaque entraînement ou compétition. Elle permet également de répondre à 
@@ -189,91 +195,79 @@ export default function Application() {
         </div>
       </section>
 
-      {/* ── COMPTEURS ── */}
-      <section className="bg-red-sc py-10 px-8">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
-          {[
-            { target: 30,  suffix: 'J',  label: 'Essai gratuit' },
-            { target: 2,   suffix: '',   label: 'Profils disponibles' },
-            { target: 100, suffix: '%',  label: 'Auto-évaluation' },
-            { target: 24,  suffix: '/7', label: 'Disponibilité' },
-          ].map(({ target, suffix, label }) => (
-            <div key={label}>
-              <div className="font-condensed font-black leading-none mb-1"
-                   style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)' }}>
-                <Counter target={target} suffix={suffix} />
-              </div>
-              <div className="text-[0.68rem] tracking-widest uppercase opacity-80">
-                {label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* ── COMMENT ÇA MARCHE ── */}
-      <section className="py-24 px-8 bg-navy" ref={timelineRef}>
-        <div className="text-center mb-16">
-          <p className="reveal text-[0.72rem] tracking-[0.3em] uppercase text-red-sc mb-3">
-            Simple et efficace
-          </p>
-          <h2
-            className="reveal reveal-d1 font-condensed font-black uppercase leading-none text-cream"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
+<section className="relative py-12 px-8 overflow-hidden" ref={timelineRef}>
+         
+  {/* Image de fond */}
+  <div className="absolute inset-0 z-0">
+    <img
+      src="/images/etape.jpeg"
+      alt="fond"
+      className="w-full h-full object-cover"
+    />
+    <div className="absolute inset-0 bg-navy/60" />
+    
+  </div>
+
+  {/* Tout le contenu dans un div z-10 */}
+  <div className="relative z-10">
+    <div className="text-center mb-8">
+      <p className="font-bold text-x tracking-[0.3em] uppercase text-red-sc mb-4">
+        Simple et efficace
+      </p>
+      <h2
+        className="font-condensed font-black uppercase leading-none text-cream"
+        style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
+      >
+        Comment ça marche ?
+      </h2>
+    </div>
+
+    {/* Timeline */}
+    <div className="relative max-w-3xl mx-auto">
+      <div className="timeline-line" />
+      <div className="timeline-progress" ref={progressRef} />
+      <div className="flex flex-col gap-16">
+        {steps.map(({ number, title, desc, icon, side }, i) => (
+          <div
+            key={i}
+            className={`timeline-step ${side === 'right' ? 'right' : ''} flex items-center gap-8 ${
+              side === 'right' ? 'flex-row-reverse' : ''
+            }`}
           >
-            Comment ça marche ?
-          </h2>
-        </div>
-
-        {/* Timeline */}
-        <div className="relative max-w-4xl mx-auto">
-          {/* Ligne verticale */}
-          <div className="timeline-line" />
-          <div className="timeline-progress" ref={progressRef} />
-
-          <div className="flex flex-col gap-16">
-            {steps.map(({ number, title, desc, icon, side }, i) => (
-              <div
-                key={i}
-                className={`timeline-step ${side === 'right' ? 'right' : ''} flex items-center gap-8 ${
-                  side === 'right' ? 'flex-row-reverse' : ''
-                }`}
-              >
-                {/* Contenu */}
-                <div className={`flex-1 ${side === 'right' ? 'text-right' : 'text-left'}`}>
-                  <div className="inline-flex items-center gap-3 mb-3">
-                    <span className="font-condensed font-black text-red-sc/30 text-5xl leading-none">
-                      {number}
-                    </span>
-                    <span className="text-2xl">{icon}</span>
-                  </div>
-                  <h3 className="font-condensed font-black text-2xl uppercase text-cream mb-2">
-                    {title}
-                  </h3>
-                  <p className="text-muted text-sm leading-relaxed max-w-xs">
-                    {desc}
-                  </p>
-                </div>
-
-                {/* Point central sur la timeline */}
-                <div className="w-4 h-4 min-w-[1rem] bg-red-sc rounded-full border-4 border-navy z-10 shadow-lg shadow-red-sc/50" />
-
-                {/* Espace vide de l'autre côté */}
-                <div className="flex-1" />
+            <div className={`flex-1 ${side === 'right' ? 'text-right' : 'text-left'}`}>
+              <div className="inline-flex items-center gap-3 mb-3">
+                <span className="font-condensed font-black text-red-sc/70 text-5xl leading-none">
+                  {number}
+                </span>
+                <span className="text-2xl">{icon}</span>
               </div>
-            ))}
+              <h3 className="font-condensed font-black text-3xl uppercase text-cream mb-2">
+                {title}
+              </h3>
+              <p className="text-muted text-base leading-relaxed max-w-xs">
+                {desc}
+              </p>
+            </div>
+            <div className="w-4 h-4 min-w-[1rem] bg-red-sc rounded-full border-4 border-navy z-10 shadow-lg shadow-red-sc/50" />
+            <div className="flex-1" />
           </div>
-        </div>
-      </section>
+        ))}
+      </div>
+    </div>
+  </div>
+
+</section>
 
       {/* ── VIDÉOS CANVA ── */}
       <section className="py-24 px-8 bg-ink">
         <div className="text-center mb-12">
-          <p className="reveal text-[0.72rem] tracking-[0.3em] uppercase text-red-sc mb-3">
+          <p className="font-bold text-x tracking-[0.3em] uppercase text-red-sc mb-3">
             En vidéo
           </p>
           <h2
-            className="reveal reveal-d1 font-condensed font-black uppercase leading-none text-cream"
+            className="font-condensed font-black uppercase leading-none text-cream"
             style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
           >
             Nos vidéos démonstratives
@@ -282,7 +276,7 @@ export default function Application() {
 
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
           {videos.map(({ title, desc, thumb }, i) => (
-            <div key={i} className={`video-card reveal reveal-d${i}`}>
+            <div key={i} className={`video-card reveal-d${i}`}>
               {/* Thumbnail */}
               <div className="relative aspect-video">
                 <img
@@ -318,11 +312,11 @@ export default function Application() {
       {/* ── VIDÉO DÉMO COMING SOON ── */}
       <section className="py-24 px-8 bg-navy">
         <div className="text-center mb-12">
-          <p className="reveal text-[0.72rem] tracking-[0.3em] uppercase text-red-sc mb-3">
+          <p className="font-bold text-x tracking-[0.3em] uppercase text-red-sc mb-3">
             Bientôt disponible
           </p>
           <h2
-            className="reveal reveal-d1 font-condensed font-black uppercase leading-none text-cream"
+            className="font-condensed font-black uppercase leading-none text-cream"
             style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
           >
             Vidéo démo complète
@@ -351,7 +345,7 @@ export default function Application() {
             Elle sera disponible très prochainement.
           </p>
 
-          {/* Barre de progression fake */}
+          {/* Barre de progression*/}
           <div className="mt-8 bg-white/10 rounded-full h-1.5 max-w-xs mx-auto overflow-hidden">
             <div className="bg-red-sc h-full rounded-full w-2/3 animate-pulse" />
           </div>
