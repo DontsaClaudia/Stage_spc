@@ -3,6 +3,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Accueil from './pages/Accueil'
 import Application from './pages/Application'
+import NosOffres from './pages/NosOffres'
 
 const PageTemp = ({ titre }) => (
   <div className="pt-32 px-8 text-center">
@@ -18,7 +19,7 @@ export default function App() {
         <Routes>
           <Route path="/"            element={<Accueil />} />
           <Route path="/application" element={<Application />} />
-          <Route path="/offres"      element={<PageTemp titre="Nos Offres" />} />
+          <Route path="/offres"      element={<NosOffres />} />
           <Route path="/contact"     element={<PageTemp titre="Contact" />} />
           <Route path="/blog"        element={<PageTemp titre="Blog" />} />
         </Routes>
