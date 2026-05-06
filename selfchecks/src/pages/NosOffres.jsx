@@ -355,7 +355,7 @@ export default function NosOffres() {
 </div>
 
   <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-    {offres.map(({ tag, name, price, period, desc, features, icon, featured, cta }, i) => (
+    {offres.map(({ tag, name, price, period, desc, features, icon, featured, cta, priceId  }, i) => (
       <div
         key={i}
         className={`offre-row group flex flex-row items-stretch rounded-xl border overflow-hidden transition-all duration-500 hover:-translate-y-1
@@ -426,14 +426,9 @@ export default function NosOffres() {
             ))}
           </ul>
 
-          {/* Bouton */}
+         {/* Bouton */}
             <button
-            onClick={() => handleCheckout(
-                featured ? import.meta.env.VITE_PRICE_SPORTIF : 
-                name === 'Coach' ? import.meta.env.VITE_PRICE_COACH_10 : 
-                null,
-                name
-            )}
+            onClick={() => handleCheckout(priceId, name)}
             disabled={loading === name}
             className={`self-start font-condensed font-bold text-sm tracking-widest uppercase py-2.5 px-6 rounded-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer
                 ${featured
