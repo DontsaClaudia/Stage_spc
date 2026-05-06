@@ -15,7 +15,8 @@ module.exports = async (req, res) => {
       success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/offres`,
     })
-    res.status(200).json({ sessionId: session.id })
+
+    res.status(200).json({ url: session.url })
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

@@ -2,11 +2,6 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useReveal from '../hooks/useReveal'
 import CtaBand from '../components/CtaBand'
-import { loadStripe } from '@stripe/stripe-js'
-
-
-// Initialisation de Stripe avec la clé publique
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 
 // ── Les 4 offres détaillées ──
 const offres = [
@@ -168,11 +163,7 @@ export default function NosOffres() {
   const [loading, setLoading] = useState(null) 
 
  const handleCheckout = async (priceId, name) => {
-  console.log('Bouton cliqué :', name)
-  console.log('priceId :', priceId)
-
   if (!priceId) {
-    console.error('priceId manquant')
     window.location.href = '/contact'
     return
   }
@@ -190,24 +181,15 @@ export default function NosOffres() {
     })
 
     const data = await response.json()
-    console.log('Réponse API Stripe :', data)
 
     if (!response.ok) {
-      throw new Error(data.error || 'Erreur API Stripe')
+      throw new Error(data.error || 'Erreur Stripe')
     }
 
-    const stripe = await stripePromise
-
-    if (!stripe) {
-      throw new Error('Stripe non chargé')
-    }
-
-    await stripe.redirectToCheckout({
-      sessionId: data.sessionId,
-    })
+    window.location.href = data.url
 
   } catch (error) {
-    console.error('Erreur Stripe complète :', error)
+    console.error('Erreur Stripe :', error)
     alert(error.message)
   } finally {
     setLoading(null)
