@@ -168,8 +168,11 @@ export default function NosOffres() {
   const [loading, setLoading] = useState(null) 
 
  const handleCheckout = async (priceId, name) => {
+  console.log('Bouton cliqué :', name)
+  console.log('priceId :', priceId)
 
   if (!priceId) {
+    console.error('priceId manquant')
     window.location.href = '/contact'
     return
   }
@@ -186,13 +189,26 @@ export default function NosOffres() {
       }),
     })
 
-    const { sessionId } = await response.json()
+    const data = await response.json()
+    console.log('Réponse API Stripe :', data)
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Erreur API Stripe')
+    }
 
     const stripe = await stripePromise
-    await stripe.redirectToCheckout({ sessionId })
+
+    if (!stripe) {
+      throw new Error('Stripe non chargé')
+    }
+
+    await stripe.redirectToCheckout({
+      sessionId: data.sessionId,
+    })
 
   } catch (error) {
-    console.error('Erreur Stripe :', error)
+    console.error('Erreur Stripe complète :', error)
+    alert(error.message)
   } finally {
     setLoading(null)
   }
