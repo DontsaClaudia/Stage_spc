@@ -169,7 +169,14 @@ export default function NosOffres() {
   const [loading, setLoading] = useState(null)
 
     const handleCheckout = async (priceId, name) => {
-    if (!priceId) {
+        console.log('priceId:', priceId)
+        console.log('name:', name)
+        console.log('env vars:', import.meta.env.VITE_PRICE_SPORTIF)
+        
+        if (!priceId) {
+            window.location.href = '/contact'}
+    return
+        if (!priceId) {
       window.location.href = '/contact'
       return
     }
