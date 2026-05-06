@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import useReveal from '../hooks/useReveal'
 import CtaBand from '../components/CtaBand'
 
+
 // ── Les 4 offres détaillées ──
 const offres = [
   {
