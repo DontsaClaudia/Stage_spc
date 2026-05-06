@@ -1,9 +1,9 @@
-const Stripe = require('stripe')
-const crypto = require('crypto')
+import Stripe from 'stripe'
+import crypto from 'crypto'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   const { session_id } = req.query
 
   try {
