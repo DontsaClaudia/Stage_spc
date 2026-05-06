@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useReveal from '../hooks/useReveal'
 import CtaBand from '../components/CtaBand'
+import { loadStripe } from '@stripe/stripe-js'
+
+
+// Initialisation de Stripe avec la clé publique
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 
 // ── Les 4 offres détaillées ──
 const offres = [
@@ -9,6 +14,7 @@ const offres = [
     tag: '★ Le plus populaire',
     name: 'Démo Gratuite',
     price: 'Gratuit',
+    priceId: import.meta.env.VITE_PRICE_DEMO,
     period: '30 jours',
     desc: 'La démonstration de notre application permettra aux sportifs de découvrir comment l\'auto-évaluation peut les aider à améliorer leur performance et atteindre leurs objectifs.',
     features: [
@@ -31,6 +37,7 @@ const offres = [
     tag: 'Sportifs',
     name: 'Sportif',
     price: '15€',
+    priceId: import.meta.env.VITE_PRICE_SPORTIF,
     period: 'par an',
     desc: 'L\'application vous permet de vous autoévaluer, fixer vos objectifs personnels et progresser dans votre performance. Enregistrez et analysez facilement vos séances d\'entraînement, compétitions et performances quotidiennes.',
     features: [
@@ -53,6 +60,7 @@ const offres = [
     tag: 'Coachs',
     name: 'Coach',
     price: 'Dès 40€',
+    priceId: import.meta.env.VITE_PRICE_COACH_10,
     period: 'par an',
     desc: 'L\'application permet aux coachs d\'évaluer et de suivre la progression des sportifs par rapport aux objectifs fixés. En enregistrant et analysant les performances individuelles, vous pouvez comparer les résultats, identifier les domaines à améliorer et ajuster l\'entraînement.',
     features: [
@@ -75,6 +83,7 @@ const offres = [
     tag: 'Sur mesure',
     name: 'Made by Self Checks',
     price: '1€',
+    priceId: import.meta.env.VITE_PRICE_DEMO,
     period: 'par sportif',
     desc: 'Lors de votre première connexion à Self Checks, nous vous offrons la possibilité de nous confier la création des comptes de vos sportifs. Cette fonctionnalité vous permettra de gagner du temps et d\'être plus disponible aux côtés de vos joueurs.',
     features: [
@@ -156,6 +165,33 @@ export default function NosOffres() {
   useReveal()
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
+      // État pour le chargement du bouton
+  const [loading, setLoading] = useState(null)
+
+    const handleCheckout = async (priceId, name) => {
+    if (!priceId) {
+      window.location.href = '/contact'
+      return
+    }
+    setLoading(name)
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          priceId,
+          offre: name, // on utilise name directement
+        }),
+      })
+      const { sessionId } = await response.json()
+      const stripe = await stripePromise
+      await stripe.redirectToCheckout({ sessionId })
+    } catch (error) {
+      console.error('Erreur Stripe :', error)
+    } finally {
+      setLoading(null)
+    }
+  }
   return (
     <>
       {/* ── HERO ── */}
@@ -391,16 +427,31 @@ export default function NosOffres() {
           </ul>
 
           {/* Bouton */}
-          <Link
-            to="/contact"
-            className={`self-start font-condensed font-bold text-xs tracking-widest uppercase py-2.5 px-6 rounded-lg transition-all duration-200 no-underline hover:-translate-y-0.5
-              ${featured
+            <button
+            onClick={() => handleCheckout(
+                featured ? import.meta.env.VITE_PRICE_SPORTIF : 
+                name === 'Coach' ? import.meta.env.VITE_PRICE_COACH_10 : 
+                null,
+                name
+            )}
+            disabled={loading === name}
+            className={`self-start font-condensed font-bold text-sm tracking-widest uppercase py-2.5 px-6 rounded-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer
+                ${featured
                 ? 'bg-white text-red-sc hover:bg-white/90'
                 : 'bg-red-sc hover:bg-red-dark text-white hover:shadow-lg hover:shadow-red-sc/30'
-              }`}
-          >
-            {cta}
-          </Link>
+                }
+                ${loading === name ? 'opacity-70 cursor-wait' : ''}
+            `}
+            >
+            {loading === name ? (
+                <span className="flex items-center gap-2">
+                <svg className="w-3 h-3 animate-spin" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="30 70" />
+                </svg>
+                Chargement...
+                </span>
+            ) : cta}
+            </button>
         </div>
 
       </div>
