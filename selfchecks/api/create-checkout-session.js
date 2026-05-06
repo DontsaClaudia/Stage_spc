@@ -1,8 +1,8 @@
-import Stripe from 'stripe'
+const Stripe = require('stripe')
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
@@ -10,26 +10,11 @@ export default async function handler(req, res) {
   const { priceId, offre } = req.body
 
   try {
-    // Création de la session Stripe Checkout
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'subscription',
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      // Email collecté automatiquement par Stripe
-      customer_email: undefined,
-      collect_shipping_address: false,
-
-      // Métadonnées on stocke l'offre choisie
-      metadata: {
-        offre: offre,
-      },
-
-      // URLs de redirection après paiement
+      line_items: [{ price: priceId, quantity: 1 }],
+      metadata: { offre },
       success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/offres`,
     })
