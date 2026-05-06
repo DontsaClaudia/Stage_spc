@@ -165,6 +165,8 @@ export default function NosOffres() {
   useReveal()
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
+  const [loading, setLoading] = useState(null) 
+
  const handleCheckout = async (priceId, name) => {
 
   if (!priceId) {
