@@ -4,15 +4,16 @@ import CtaBand from '../components/CtaBand'
 
 // Photos des athlètes — remplace les extensions si besoin
 const athletes = [
-  { src: '/images/Abdallah_Riahi_edited.jpg', name: 'Abdallah Riahi', sport: 'Athlétisme' },
+  { src: '/images/Abdellah_Riahi_edited.jpg', name: 'Abdallah Riahi', sport: 'Athlétisme' },
   { src: '/images/Elise_Meallet.jpg',         name: 'Elise Meallet',  sport: 'Sport' },
   { src: '/images/Axel_Sendral.jpg',           name: 'Axel Sendral',   sport: 'Sport' },
-  { src: '/images/Raphael_Lalitte.jpg',        name: 'Raphael Lalitte',sport: 'Sport' },
+  { src: '/images/Raphael_Lalitte.jpeg',        name: 'Raphael Lalitte',sport: 'Echecs' },
   { src: '/images/Flavin.jpg',                 name: 'Flavin',         sport: 'Sport' },
-  { src: '/images/Baptiste_Arnaud.jpg',        name: 'Baptiste Arnaud',sport: 'Cyclisme' },
-  { src: '/images/Ugo_Ladant.jpg',             name: 'Ugo Ladant',     sport: 'VTT' },
+  { src: '/images/Baptiste_Arnaud.jpeg',        name: 'Baptiste Arnaud',sport: 'Cyclisme' },
+  { src: '/images/Ugo_Ladant.jpg',             name: 'Ugo Ladant',     sport: 'Course' },
   { src: '/images/maelle.jpg',                 name: 'Maelle',         sport: 'Sport' },
-  { src: '/images/Kévin.jpg',                  name: 'Kévin',          sport: 'Sport' },
+  { src: '/images/Kévin.jpeg',                  name: 'Kévin',          sport: 'Sport' },
+  { src: '/images/Raphael_nguyen.jpeg',         name: 'Raphael Nguyen', sport: 'Cyclisme' },
 ]
 
 export default function Blog() {
@@ -94,8 +95,6 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* ── CTA FINAL ── */}
-      <CtaBand />
     </>
   )
 }

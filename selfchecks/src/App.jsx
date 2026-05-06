@@ -4,6 +4,7 @@ import Footer from './components/Footer'
 import Accueil from './pages/Accueil'
 import Application from './pages/Application'
 import NosOffres from './pages/NosOffres'
+import Blog from './pages/Blog'
 
 const PageTemp = ({ titre }) => (
   <div className="pt-32 px-8 text-center">
@@ -21,7 +22,7 @@ export default function App() {
           <Route path="/application" element={<Application />} />
           <Route path="/offres"      element={<NosOffres />} />
           <Route path="/contact"     element={<PageTemp titre="Contact" />} />
-          <Route path="/blog"        element={<PageTemp titre="Blog" />} />
+          <Route path="/blog"        element={<Blog />} />
         </Routes>
       </main>
       <Footer />
