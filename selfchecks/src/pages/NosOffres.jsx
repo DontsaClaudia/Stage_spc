@@ -14,7 +14,7 @@ const offres = [
     tag: '★ Le plus populaire',
     name: 'Démo Gratuite',
     price: 'Gratuit',
-    priceId: import.meta.env.VITE_PRICE_DEMO,
+    priceId: import.meta.env.VITE_PRICE_GRATUIT,
     period: '30 jours',
     desc: 'La démonstration de notre application permettra aux sportifs de découvrir comment l\'auto-évaluation peut les aider à améliorer leur performance et atteindre leurs objectifs.',
     features: [
@@ -83,7 +83,7 @@ const offres = [
     tag: 'Sur mesure',
     name: 'Made by Self Checks',
     price: '1€',
-    priceId: import.meta.env.VITE_PRICE_DEMO,
+    priceId: import.meta.env.VITE_PRICE_GRATUIT,
     period: 'par sportif',
     desc: 'Lors de votre première connexion à Self Checks, nous vous offrons la possibilité de nous confier la création des comptes de vos sportifs. Cette fonctionnalité vous permettra de gagner du temps et d\'être plus disponible aux côtés de vos joueurs.',
     features: [
@@ -165,40 +165,36 @@ export default function NosOffres() {
   useReveal()
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
-      // État pour le chargement du bouton
-  const [loading, setLoading] = useState(null)
+ const handleCheckout = async (priceId, name) => {
 
-    const handleCheckout = async (priceId, name) => {
-        console.log('priceId:', priceId)
-        console.log('name:', name)
-        console.log('env vars:', import.meta.env.VITE_PRICE_SPORTIF)
-        
-        if (!priceId) {
-            window.location.href = '/contact'}
+  if (!priceId) {
+    window.location.href = '/contact'
     return
-        if (!priceId) {
-      window.location.href = '/contact'
-      return
-    }
-    setLoading(name)
-    try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          priceId,
-          offre: name, // on utilise name directement
-        }),
-      })
-      const { sessionId } = await response.json()
-      const stripe = await stripePromise
-      await stripe.redirectToCheckout({ sessionId })
-    } catch (error) {
-      console.error('Erreur Stripe :', error)
-    } finally {
-      setLoading(null)
-    }
   }
+
+  setLoading(name)
+
+  try {
+    const response = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        priceId,
+        offre: name,
+      }),
+    })
+
+    const { sessionId } = await response.json()
+
+    const stripe = await stripePromise
+    await stripe.redirectToCheckout({ sessionId })
+
+  } catch (error) {
+    console.error('Erreur Stripe :', error)
+  } finally {
+    setLoading(null)
+  }
+}
   return (
     <>
       {/* ── HERO ── */}
