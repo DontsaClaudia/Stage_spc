@@ -59,7 +59,7 @@ export default function CtaBand() {
           className="text-muted text-sm leading-relaxed mb-8 max-w-lg mx-auto"
         >
           Rejoignez Self Checks dès aujourd'hui et commencez votre essai gratuit.
-          Aucune carte bancaire requise — 30 jours offerts, sans engagement.
+          une carte bancaire sera requise 30 jours offerts, sans engagement.
         </motion.p>
 
         {/* Boutons */}
@@ -76,7 +76,7 @@ export default function CtaBand() {
             style={{ fontSize: 'clamp(0.85rem, 1.2vw, 1rem)' }}
           >
             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
-            🎁 Essayer gratuitement — 30 jours offerts
+            🎁 Essayer gratuitement 30 jours offerts
           </Link>
 
           <Link

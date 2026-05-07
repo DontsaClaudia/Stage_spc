@@ -31,7 +31,7 @@ const steps = [
   {
     number: '03',
     title: 'Progresse avec méthode',
-    desc: 'Fixe tes objectifs, suis ton évolution et reçois des insights personnalisés pour t\'améliorer continuellement.',
+    desc: 'Fixe tes objectifs, suis ton évolution à travers les graphiques pour t\'améliorer continuellement.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6 text-red-sc">
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
@@ -49,13 +49,14 @@ const videos = [
     thumb: '/images/athlete1.avif',
   },
   {
-    title: 'Comment utiliser Self Checks ?',
-    desc: 'Guide pas à pas pour bien démarrer avec l\'application.',
+    title: 'Pourquoi Self Checks ?',
+    desc: 'Découvrez les avantages de l\'utilisation de Self Checks pour améliorer votre performance sportive.',
     thumb: '/images/athlete2.avif',
+    src: '/images/selfchecks2.mp4',
   },
   {
     title: 'Témoignages d\'athlètes',
-    desc: 'Ils utilisent Self Checks et partagent leur expérience.',
+    desc: 'Ils aiment Self Checks et ils sont contents de partager leur expérience.',
     thumb: '/images/athlete3.avif',
   },
 ]
@@ -197,7 +198,7 @@ export default function Application() {
 
 
       {/* ── COMMENT ÇA MARCHE ── */}
-<section className="relative py-12 px-8 overflow-hidden" ref={timelineRef}>
+<section className="relative min-h-screen flex flex-col justify-center px-8 overflow-hidden" ref={timelineRef}>
          
   {/* Image de fond */}
   <div className="absolute inset-0 z-0">
@@ -228,7 +229,7 @@ export default function Application() {
     <div className="relative max-w-3xl mx-auto">
       <div className="timeline-line" />
       <div className="timeline-progress" ref={progressRef} />
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col gap-8">
         {steps.map(({ number, title, desc, icon, side }, i) => (
           <div
             key={i}
@@ -275,27 +276,29 @@ export default function Application() {
         </div>
 
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
-          {videos.map(({ title, desc, thumb }, i) => (
+          {videos.map(({ title, desc, thumb, src }, i) => (
             <div key={i} className={`video-card reveal-d${i}`}>
               {/* Thumbnail */}
               <div className="relative aspect-video">
-                <img
-                  src={thumb}
-                  alt={title}
-                  className="w-full h-full object-cover"
+                <video
+                    src={src}
+                    poster={thumb}
+                    controls
+                    className="w-full h-full object-cover"
                 />
                 {/* Overlay + bouton play */}
-                <div className="play-btn">
+                <div className="play-btn" onClick={(e) => {
+                    const video = e.currentTarget.previousSibling
+                    video.play()
+                    e.currentTarget.style.display = 'none'
+                  }}>
                     <div className="play-icon">
-                        <svg viewBox="0 0 24 24" fill="white" className="w-6 h-6 ml-1">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
+                    <svg viewBox="0 0 24 24" fill="white" className="w-6 h-6 ml-1">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
                     </div>
                 </div>
-                {/* Badge placeholder */}
-                <div className="absolute top-3 right-3 bg-navy/80 text-white/60 text-[0.6rem] tracking-widest uppercase px-2 py-1 rounded">
-                  Vidéo Canva
-                </div>
+                
               </div>
               {/* Infos */}
               <div className="bg-navy p-4">
@@ -309,51 +312,29 @@ export default function Application() {
         </div>
       </section>
 
-      {/* ── VIDÉO DÉMO COMING SOON ── */}
-      <section className="py-24 px-8 bg-navy">
+      {/* ── VIDÉO DÉMO ── */}
+        <section className="py-24 px-8 bg-navy">
         <div className="text-center mb-12">
-          <p className="font-bold text-x tracking-[0.3em] uppercase text-red-sc mb-3">
-            Bientôt disponible
-          </p>
-          <h2
+            <p className="text-[0.72rem] tracking-[0.3em] uppercase text-red-sc mb-3">
+            Démonstration complète
+            </p>
+            <h2
             className="font-condensed font-black uppercase leading-none text-cream"
             style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
-          >
-            Vidéo démo complète
-          </h2>
+            >
+            Vidéo démo
+            </h2>
         </div>
 
-        <div className="max-w-3xl mx-auto coming-soon p-12 text-center">
-          {/* Icône animée */}
-          <div className="text-6xl mb-6">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-16 h-16 text-red-sc mx-auto mb-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125h-1.5m1.5-1.5v-1.5c0-.621-.504-1.125-1.125-1.125M6 18.375V5.625m0 0a1.125 1.125 0 011.125-1.125h9.75A1.125 1.125 0 0118 5.625m-12 0h12" />
-            </svg>
-          </div>
-
-          {/* Badge Coming Soon */}
-          <div className="inline-flex items-center gap-2 bg-red-sc pulse-badge text-white text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-full mb-6">
-            <span className="w-2 h-2 bg-white rounded-full animate-ping" />
-            Coming Soon
-          </div>
-
-          <h3 className="font-condensed font-black text-3xl uppercase text-cream mb-4">
-            La démo arrive bientôt !
-          </h3>
-          <p className="text-muted text-sm leading-relaxed max-w-md mx-auto">
-            Notre équipe prépare une vidéo de démonstration complète de l'application.
-            Elle sera disponible très prochainement.
-          </p>
-
-          {/* Barre de progression*/}
-          <div className="mt-8 bg-white/10 rounded-full h-1.5 max-w-xs mx-auto overflow-hidden">
-            <div className="bg-red-sc h-full rounded-full w-2/3 animate-pulse" />
-          </div>
-          <p className="text-white/30 text-xs mt-2 tracking-widest uppercase">
-            En cours de production...
-          </p>
+        <div className="max-w-4xl mx-auto rounded-xl overflow-hidden border border-white/10">
+            <video
+            src="/images/selfchecks2.mp4"
+            controls
+            className="w-full h-full object-cover"
+            
+            />
         </div>
-      </section>
+        </section>
 
       {/* ── CTA FINAL ── */}
       <CtaBand />
