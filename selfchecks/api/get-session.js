@@ -13,9 +13,16 @@ module.exports = async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.retrieve(session_id)
 
-    const email = (session.customer_details?.email || session.customer_email || '').trim().toLowerCase()
+    const email = (
+      session.customer_details?.email ||
+      session.customer_email ||
+      ''
+    ).trim().toLowerCase()
+
     if (!email) {
-      return res.status(400).json({ error: 'Email introuvable dans la session Stripe' })
+      return res.status(400).json({
+        error: 'Email introuvable dans la session Stripe'
+      })
     }
 
     const token = crypto
@@ -26,11 +33,13 @@ module.exports = async (req, res) => {
       .toUpperCase()
 
     const phpApiSecret = (process.env.PHP_API_SECRET || '').trim()
+
     if (!phpApiSecret) {
-      return res.status(500).json({ error: 'PHP_API_SECRET manquant côté site paiement' })
+      return res.status(500).json({
+        error: 'PHP_API_SECRET manquant côté site paiement'
+      })
     }
 
-    // Choix du rôle selon metadata.offre
     const role =
       (session.metadata?.offre || '').toLowerCase() === 'coach'
         ? 'coach'
@@ -40,8 +49,9 @@ module.exports = async (req, res) => {
       token,
       email,
       role,
-      stripe_session_id: session.id,
       offre: session.metadata?.offre || null,
+      paid: true,
+      stripe_session_id: session.id,
       source_site: 'Self Checks'
     }
 
@@ -58,18 +68,17 @@ module.exports = async (req, res) => {
     )
 
     const responseText = await apiResponse.text()
+
     console.log('PHP API status:', apiResponse.status)
     console.log('PHP API body:', responseText)
 
     if (!apiResponse.ok) {
-      return res.status(502).json({
-        error: 'Echec appel API PHP',
-        php_status: apiResponse.status,
-        php_body: responseText
+      console.error('Echec appel API PHP:', {
+        status: apiResponse.status,
+        body: responseText
       })
     }
 
-    // Réponse frontend
     return res.status(200).json({
       email,
       token,
@@ -77,6 +86,7 @@ module.exports = async (req, res) => {
     })
   } catch (error) {
     console.error(error)
+
     return res.status(500).json({
       error: error.message || 'Erreur serveur'
     })
