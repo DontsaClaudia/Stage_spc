@@ -69,7 +69,7 @@ export default function Success() {
             <ol className="flex flex-col gap-3">
               {[
                 'Vérifiez votre email pour votre token d\'activation',
-                'Téléchargez l\'application Self Checks',
+                'Cliquer sur le lien dans l\'email pour accéder à l\'application Self Checks',
                 'Créez votre compte avec votre email et votre token',
                 'Commencez votre auto-évaluation !',
               ].map((step, i) => (
