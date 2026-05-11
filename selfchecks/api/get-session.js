@@ -83,7 +83,7 @@ module.exports = async (req, res) => {
     }
 
     await resend.emails.send({
-  from: 'Self Checks <onboarding@resend.dev>',
+  from: 'Self Checks <selfchecks@palmierconsulting.click>',
   to: email,
   subject: 'Votre accès Self Checks',
   html: `
