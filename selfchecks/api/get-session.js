@@ -152,7 +152,25 @@ module.exports = async (req, res) => {
             Accéder à l'application
           </a>
         </div>
-
+          <div style="text-align:center">
+            <a
+              href="https://stage-spc.vercel.app/resiliation"
+              style="
+                display:inline-block;
+                background:#111827;
+                color:white;
+                padding:14px 28px;
+                border-radius:10px;
+                text-decoration:none;
+                font-weight:bold;
+                text-transform:uppercase;
+                letter-spacing:1px;
+                margin-top:16px;
+              "
+            >
+          Gérer ou résilier mon abonnement
+       </a>
+      </div>
       </div>
     </div>
   `
