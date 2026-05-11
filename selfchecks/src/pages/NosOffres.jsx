@@ -60,9 +60,7 @@ const offres = [
     period: 'par an',
     desc: 'L\'application permet aux coachs d\'évaluer et de suivre la progression des sportifs par rapport aux objectifs fixés. En enregistrant et analysant les performances individuelles, vous pouvez comparer les résultats, identifier les domaines à améliorer et ajuster l\'entraînement.',
     features: [
-      '10 sportifs : 40€/an',
-      '20 sportifs : 80€/an',
-      '+20 sportifs : 120€/an',
+      'Suivi de sportifs : 49.99€ / an',
       'Tableau de bord coach',
       'Suivi individuel des athlètes',
       'Comparaison des performances',

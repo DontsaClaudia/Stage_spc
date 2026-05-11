@@ -12,8 +12,13 @@ module.exports = async (req, res) => {
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
       metadata: { offre },
-       success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-       cancel_url: `${req.headers.origin}/offres`,
+      // Si c'est la démo on ajoute 30 jours d'essai gratuit
+      // Après 30 jours Stripe prélève automatiquement 15€
+      subscription_data: offre === 'Démo Gratuite' ? {
+        trial_period_days: 30,
+      } : undefined,
+      success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.origin}/offres`,
     })
 
     res.status(200).json({ url: session.url })

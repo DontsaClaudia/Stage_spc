@@ -54,45 +54,49 @@ export default function Hero() {
       </div>
 
       {/* ── Boutons CTA ── */}
-<div className="absolute bottom-10 left-1/2 right-1/2 -translate-x-1/2 z-20 flex gap-4 animate-fadeup-slow pointer-events-auto">
+<div className="absolute bottom-28 inset-x-0 z-30 flex flex-wrap justify-center gap-4 animate-fadeup-slow pointer-events-auto w-full px-4">
+
   <Link
     to="/offres"
-    className="clip-skew bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-sm tracking-widest uppercase px-6 py-3 transition-all duration-200 hover:-translate-y-0.5 no-underline whitespace-nowrap"
+    className="clip-skew bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:-translate-y-0.5 no-underline whitespace-nowrap shadow-xl shadow-red-sc/30"
   >
-    Essai gratuit
+    Essai gratuit 30 jours
   </Link>
+
   <Link
     to="/application"
-    className="clip-skew border-2 border-white/50 hover:border-white text-white font-condensed font-bold text-sm tracking-widest uppercase px-6 py-3 transition-all duration-200 hover:-translate-y-0.5 no-underline whitespace-nowrap"
+    className="clip-skew bg-black/40 backdrop-blur-md border-2 border-white/70 hover:border-white text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:-translate-y-0.5 no-underline whitespace-nowrap shadow-xl"
   >
     Notre Application
   </Link>
+
 </div>
 
 {/* ── Stats intégrées en bas du Hero ── */}
-<div className="absolute bottom-6 left-0 right-0 z-20 flex items-center justify-center gap-4 px-8">
-  {stats.map(({ number, label, img }, i) => (
-    <div
-      key={i}
-      // rounded-xl : coins arrondis
-      // hover:-translate-y-2 : surélèvement au hover
-      // hover:shadow-xl : ombre qui apparaît au hover
-      className="flex items-center gap-3 bg-ink/50 backdrop-blur-sm border border-white/15 px-5 py-3 rounded-xl hover:-translate-y-2 hover:shadow-xl hover:shadow-black/40 hover:bg-red-sc/30 hover:border-red-sc/40 transition-all duration-300 cursor-default"
-    >
-      {/* Icône */}
-      <img src={img} alt={label} className="w-8 h-8" />
-      <div className="flex flex-col">
-        {/* Chiffre */}
-        <span className="font-condensed font-black text-white text-xl leading-none">
-          {number}
-        </span>
-        {/* Label */}
-        <span className="text-[0.6rem] tracking-widest uppercase text-white/60 mt-0.5">
-          {label}
-        </span>
+<div className="absolute bottom-4 sm:bottom-6 left-0 right-0 z-20 px-3 sm:px-8">
+  <div className="mx-auto grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 max-w-[360px] sm:max-w-5xl">
+    {stats.map(({ number, label, img }, i) => (
+      <div
+        key={i}
+        className="flex items-center gap-2 sm:gap-3 bg-ink/55 backdrop-blur-sm border border-white/15 px-3 py-2 sm:px-5 sm:py-3 rounded-xl hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-xl hover:shadow-black/40 hover:bg-red-sc/30 hover:border-red-sc/40 transition-all duration-300 cursor-default min-w-0"
+      >
+        <img
+          src={img}
+          alt={label}
+          className="w-6 h-6 sm:w-8 sm:h-8 shrink-0"
+        />
+
+        <div className="flex flex-col min-w-0">
+          <span className="font-condensed font-black text-white text-base sm:text-xl leading-none">
+            {number}
+          </span>
+          <span className="text-[0.5rem] sm:text-[0.6rem] tracking-widest uppercase text-white/60 mt-0.5 leading-tight">
+            {label}
+          </span>
+        </div>
       </div>
-    </div>
-  ))}
+    ))}
+  </div>
 </div>
 
       {/* ── Indicateur scroll ── */}
