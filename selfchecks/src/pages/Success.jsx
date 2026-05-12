@@ -83,15 +83,16 @@ export default function Success() {
             </ol>
           </div>
 
-          <Link
-            to="/"
-            className="inline-block bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm transition-all duration-200 no-underline hover:-translate-y-0.5"
-          >
-            Retour à l'accueil
-          </Link>
-          <button onClick={handleManageSubscription} className="inline-block bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm transition-all duration-200 no-underline hover:-translate-y-0.5">
-            Gérer / résilier mon abonnement
-          </button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/"
+                className="inline-block bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm transition-all duration-200 no-underline hover:-translate-y-0.5"
+              >
+                Retour à l'accueil
+              </Link>
+
+              
+          </div>
         </div>
        
       )}    

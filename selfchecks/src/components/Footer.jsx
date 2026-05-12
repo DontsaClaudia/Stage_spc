@@ -72,10 +72,10 @@ export default function Footer() {
             <li>15000 Aurillac, France</li>
             <li>
               <a
-                href="mailto:stephane@palmiercosnulting.fr"
+                href="mailto:stephane@palmierconsulting.fr"
                 className="hover:text-cream transition-colors no-underline"
               >
-                stephane@palmiercosnulting.fr
+                stephane@palmierconsulting.fr
               </a>
             </li>
             <li>
