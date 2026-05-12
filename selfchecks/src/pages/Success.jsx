@@ -20,18 +20,6 @@ export default function Success() {
         .catch(() => setLoading(false))
     }
   }, [sessionId])
-    const handleManageSubscription = async () => {
-    const sessionId = new URLSearchParams(window.location.search).get('session_id')
-
-    const response = await fetch('/api/create-portal-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ session_id: sessionId }),
-    })
-
-    const data = await response.json()
-    window.location.href = data.url
-  }
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center text-center px-8 bg-ink pt-24">
@@ -106,10 +94,7 @@ export default function Success() {
           </button>
         </div>
        
-      )}
-       <button onClick={handleManageSubscription}>
-        Gérer / résilier mon abonnement
-      </button>
+      )}    
     </section>
   )
 }

@@ -154,7 +154,7 @@ export default function Application() {
   return (
     <>
       {/* ── HERO ── */}
-      <section className="relative min-h-[100vh] flex flex-col items-center justify-center text-center px-8 overflow-hidden">
+      <section className="relative min-h-[80vh] flex flex-col items-center justify-center text-center px-8 overflow-hidden">
         {/* Fond avec image */}
         <div className="absolute inset-0 z-0">
           <video
@@ -184,7 +184,7 @@ export default function Application() {
             <AnimatedTitle text="Application" className="block text-red-sc" />
           </h1>
           <p className="text-muted max-w-3xl mx-auto leading-relaxed text-base mb-20"
-            style={{ fontSize: 'clamp(1.25rem, 1.5vw, 1.25rem)' }}>
+            >
             Notre application est conçue pour aider les sportifs de tous niveaux à évaluer 
             leur performance sportive en répondant à un questionnaire d'auto-évaluation 
             après chaque entraînement ou compétition. Elle permet également de répondre à 
