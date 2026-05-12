@@ -237,17 +237,18 @@ export default function Application() {
               side === 'right' ? 'flex-row-reverse' : ''
             }`}
           >
-            <div className={`flex-1 ${side === 'right' ? 'text-right' : 'text-left'}`}>
+            <div className={`flex-1 ${side === 'right' ? 'text-right pr-3 sm:pr-0' : 'text-left pl-3 sm:pl-0'}`}
+              >
               <div className="inline-flex items-center gap-3 mb-3">
-                <span className="font-condensed font-black text-red-sc/70 text-5xl leading-none">
+                <span className="font-condensed font-black text-red-sc/70 text-3xl sm:text-5xl leading-none">
                   {number}
                 </span>
                 <span className="text-2xl">{icon}</span>
               </div>
-              <h3 className="font-condensed font-black text-3xl uppercase text-cream mb-2">
+              <h3 className="font-condensed font-black text-xl sm:text-3xl uppercase text-cream mb-2 leading-tight">
                 {title}
               </h3>
-              <p className="text-muted text-base leading-relaxed max-w-xs">
+              <p className="text-muted text-sm sm:text-base leading-relaxed max-w-[170px] sm:max-w-xs">
                 {desc}
               </p>
             </div>

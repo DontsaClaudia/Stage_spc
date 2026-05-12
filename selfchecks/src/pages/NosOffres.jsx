@@ -76,16 +76,15 @@ const offres = [
   {
     tag: 'Sur mesure',
     name: 'Made by Self Checks',
-    price: '1€',
+    price: '100€',
     priceId: import.meta.env.VITE_PRICE_SELFCHECKS,
-    period: 'par sportif',
+    period: 'par an',
     desc: 'Lors de votre première connexion à Self Checks, nous vous offrons la possibilité de nous confier la création des comptes de vos sportifs. Cette fonctionnalité vous permettra de gagner du temps et d\'être plus disponible aux côtés de vos joueurs.',
     features: [
       'Création des comptes sportifs',
       'Configuration personnalisée',
       'Accompagnement à la prise en main',
       'Support dédié',
-      'Coût par sportif : 1€',
       'Idéal pour les grands clubs',
     ],
     icon: (
@@ -110,16 +109,16 @@ const faqs = [
     answer: 'À la fin de votre période d\'essai, si vous n\'avez pas résilié, vous serez automatiquement prélevé selon l\'offre choisie. Vous pouvez résilier à tout moment avant la fin des 30 jours sans frais.',
   },
   {
-    question: 'Puis-je changer d\'offre en cours d\'abonnement ?',
-    answer: 'Oui, vous pouvez upgrader votre offre à tout moment. Contactez-nous et nous nous occuperons de la transition.',
-  },
-  {
-    question: 'L\'application est-elle disponible sur iOS et Android ?',
-    answer: 'Oui, Self Checks est disponible sur les deux plateformes. Vous pouvez la télécharger gratuitement et commencer votre essai immédiatement.',
+    question: 'Puis-je changer ou résilier mon offre en cours?',
+    answer: 'Oui, vous pouvez upgrader ou résilier votre offre à tout moment. Pour cela il suffit cliquer sur le bouton en bas de la page "Gerer ou Résilier mon abonnement" , renseigner votre email lors de l\'achat et suivre les instructions stripe . Le changement d\'offre prendra effet immédiatement.',
   },
   {
     question: 'Comment fonctionne l\'offre Coach ?',
-    answer: 'L\'offre Coach vous permet de suivre et d\'évaluer les performances de vos athlètes. Le tarif dépend du nombre de sportifs : 40€ pour 10, 80€ pour 20, et 120€ pour plus de 20 sportifs par an.',
+    answer: 'L\'offre Coach vous permet de suivre et d\'évaluer les performances de plusieurs athlètes simultanément. Le tarif de 49.99€ par an couvre le suivi de tous les athlètes que vous souhaitez ajouter à votre tableau de bord coach, sans limite de nombre.',
+  },
+  {
+    question: 'Comment fonctionne l\'offre Made By SelfChecks ?',
+    answer: 'L\'offre Made By SelfChecks vous permet de nous confier la création des comptes de vos sportifs, vous aurez la possibilité de nous fournir les informations nécessaires pour que nous puissions créer les comptes de vos athlètes selon vos besoins. Cette fonctionnalité est idéale pour gagner du temps et être plus disponibles aux côtés de vos joueurs. Le coût de 100€  couvre la création des comptes, la configuration personnalisée, l\'accompagnement à la prise en main. N\'hésitez pas à nous contacter via le formulaire de contact après votre achat pour plus d\'informations.',
   },
 ]
 
@@ -131,7 +130,7 @@ function FaqItem({ question, answer }) {
     <div className="border border-white/10 rounded-lg overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-6 py-4 text-left bg-navy/50 hover:bg-navy transition-colors duration-200"
+        className="w-full flex items-center justify-between px-8 py-2 text-left bg-navy/50 hover:bg-navy transition-colors duration-200"
       >
         <span className="font-condensed font-bold text-base uppercase tracking-wide text-cream">
           {question}
@@ -147,7 +146,7 @@ function FaqItem({ question, answer }) {
         </svg>
       </button>
       <div className={`overflow-hidden transition-all duration-300 ${open ? 'max-h-40' : 'max-h-0'}`}>
-        <p className="px-6 py-4 text-sm text-muted leading-relaxed bg-navy/20">
+        <p className="px-8 py-3 text-sm text-muted leading-relaxed bg-navy/20">
           {answer}
         </p>
       </div>

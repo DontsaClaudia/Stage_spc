@@ -78,8 +78,8 @@ export default function Blog() {
               {/* Infos au hover */}
               <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                 {/* Ligne rouge */}
-                <div className="w-8 h-0.5 bg-red-sc mb-2" />
-                <h3 className="font-condensed font-black text-lg uppercase text-white">
+                <div className="w-3 h-0.25 bg-red-sc mb-2" />
+                <h3 className="font-condensed font-black text-sm uppercase text-white">
                   {name}
                 </h3>
                 <p className="text-red-sc text-xs tracking-widest uppercase font-bold">
