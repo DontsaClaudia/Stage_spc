@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
       from: 'Self Checks <contact@palmierconsulting.click>',
 
       //  EMAIL DU Destinataire ou de l'ENTREPRISE
-      to: 'dontsaclaudia@gmail.com',
+      to: 'stephane@palmierconsulting.fr',
 
       subject: 'Nouveau message - Self Checks',
 
