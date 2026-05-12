@@ -54,7 +54,7 @@ export default function Hero() {
       </div>
 
       {/* ── Boutons CTA ── */}
-<div className="absolute bottom-28 inset-x-0 z-30 flex flex-wrap justify-center gap-4 animate-fadeup-slow pointer-events-auto w-full px-4">
+<div className="absolute bottom-36 sm:bottom-28 inset-x-0 z-30 flex flex-wrap justify-center gap-3 sm:gap-4 animate-fadeup-slow pointer-events-auto w-full px-4">
 
   <Link
     to="/offres"
