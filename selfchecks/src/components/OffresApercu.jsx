@@ -16,7 +16,7 @@ const offres = [
   {
     tag: 'Sportifs',
     name: 'Sportif',
-    price: '15€ / an',
+    price: '14.99€ / an',
     desc: 'Auto-évaluation complète et suivi de vos performances.',
     Icon: Timer,
     featured: false,
@@ -24,7 +24,7 @@ const offres = [
   {
     tag: 'Coachs',
     name: 'Coach',
-    price: 'Dès 40€ / an',
+    price: 'Dès 49.99€ / an',
     desc: 'Suivez et évaluez la progression de vos athlètes.',
     Icon: ClipboardList,
     featured: false,
@@ -32,7 +32,7 @@ const offres = [
   {
     tag: 'Sur mesure',
     name: 'Made by\nSelf Checks',
-    price: '1€ / sportif',
+    price: '100€ / an',
     desc: 'On crée les comptes de vos sportifs pour vous.',
     Icon: Star,
     featured: false,

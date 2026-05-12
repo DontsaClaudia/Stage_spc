@@ -32,7 +32,7 @@ const offres = [
   {
     tag: 'Sportifs',
     name: 'Sportif',
-    price: '15€',
+    price: '14.99€',
     priceId: import.meta.env.VITE_PRICE_SPORTIF,
     period: 'par an',
     desc: 'L\'application vous permet de vous autoévaluer, fixer vos objectifs personnels et progresser dans votre performance. Enregistrez et analysez facilement vos séances d\'entraînement, compétitions et performances quotidiennes.',
@@ -42,7 +42,7 @@ const offres = [
       'Fixation d\'objectifs personnels',
       'Retour post-entraînement',
       'Retour post-compétition',
-      'Abonnement annuel : 15€',
+      'Abonnement annuel : 14.99€',
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-8 h-8">

@@ -2,12 +2,10 @@ import { useEffect } from 'react'
 import useReveal from '../hooks/useReveal'
 import CtaBand from '../components/CtaBand'
 
-// Photos des athlètes — remplace les extensions si besoin
+// Photos des athlètes 
 const athletes = [
   { src: '/images/Riahi_ABDELLAH.png', name: 'Abdallah Riahi', sport: 'Athlétisme' },
   { src: '/images/Elise_MAELLET.png',         name: 'Elise Meallet',  sport: 'Sport' },
-  { src: '/images/Axel_Sendral.jpg',           name: 'Axel Sendral',   sport: 'Sport' },
-  { src: '/images/Raphael_Lalitte.jpeg',        name: 'Raphael Lalitte',sport: 'Echecs' },
   { src: '/images/Flavin.jpg',                 name: 'Flavin',         sport: 'Sport' },
   { src: '/images/Baptiste_Arnaud.jpeg',        name: 'Baptiste Arnaud',sport: 'Cyclisme' },
   { src: '/images/Hugo_LADANT.png',             name: 'Ugo Ladant',     sport: 'Course' },
