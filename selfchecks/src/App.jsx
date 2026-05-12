@@ -8,6 +8,7 @@ import Blog from './pages/Blog'
 import Success from './pages/Success'
 import Resiliation from './pages/Resiliation'
 import Contact from './pages/Contact'
+import ScrollToTop from './components/ScrollToTop'
 
 const PageTemp = ({ titre }) => (
   <div className="pt-32 px-8 text-center">
@@ -20,6 +21,7 @@ export default function App() {
     <div className="min-h-screen flex flex-col bg-ink">
       <Navbar />
       <main className="flex-1">
+        <ScrollToTop />
         <Routes>
           <Route path="/"            element={<Accueil />} />
           <Route path="/application" element={<Application />} />
