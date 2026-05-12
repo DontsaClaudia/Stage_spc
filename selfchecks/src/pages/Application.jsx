@@ -203,7 +203,7 @@ export default function Application() {
   {/* Image de fond */}
   <div className="absolute inset-0 z-0">
     <img
-      src="/images/etape.jpeg"
+      src="/images/Marc_Palmier.jpeg"
       alt="fond"
       className="w-full h-full object-cover"
     />

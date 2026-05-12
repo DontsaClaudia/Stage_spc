@@ -55,7 +55,7 @@ const offres = [
   {
     tag: 'Coachs',
     name: 'Coach',
-    price: 'Dès 40€',
+    price: '49.99€',
     priceId: import.meta.env.VITE_PRICE_COACH_10,
     period: 'par an',
     desc: 'L\'application permet aux coachs d\'évaluer et de suivre la progression des sportifs par rapport aux objectifs fixés. En enregistrant et analysant les performances individuelles, vous pouvez comparer les résultats, identifier les domaines à améliorer et ajuster l\'entraînement.',
@@ -77,7 +77,7 @@ const offres = [
     tag: 'Sur mesure',
     name: 'Made by Self Checks',
     price: '1€',
-    priceId: import.meta.env.VITE_PRICE_GRATUIT,
+    priceId: import.meta.env.VITE_PRICE_SELFCHECKS,
     period: 'par sportif',
     desc: 'Lors de votre première connexion à Self Checks, nous vous offrons la possibilité de nous confier la création des comptes de vos sportifs. Cette fonctionnalité vous permettra de gagner du temps et d\'être plus disponible aux côtés de vos joueurs.',
     features: [
@@ -95,7 +95,7 @@ const offres = [
       </svg>
     ),
     featured: false,
-    cta: 'Nous contacter',
+    cta: 'Choisir By_SelfChecks',
   },
 ]
 

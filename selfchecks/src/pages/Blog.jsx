@@ -4,16 +4,18 @@ import CtaBand from '../components/CtaBand'
 
 // Photos des athlètes — remplace les extensions si besoin
 const athletes = [
-  { src: '/images/Abdellah_Riahi_edited.jpg', name: 'Abdallah Riahi', sport: 'Athlétisme' },
-  { src: '/images/Elise_Meallet.jpg',         name: 'Elise Meallet',  sport: 'Sport' },
+  { src: '/images/Riahi_ABDELLAH.png', name: 'Abdallah Riahi', sport: 'Athlétisme' },
+  { src: '/images/Elise_MAELLET.png',         name: 'Elise Meallet',  sport: 'Sport' },
   { src: '/images/Axel_Sendral.jpg',           name: 'Axel Sendral',   sport: 'Sport' },
   { src: '/images/Raphael_Lalitte.jpeg',        name: 'Raphael Lalitte',sport: 'Echecs' },
   { src: '/images/Flavin.jpg',                 name: 'Flavin',         sport: 'Sport' },
   { src: '/images/Baptiste_Arnaud.jpeg',        name: 'Baptiste Arnaud',sport: 'Cyclisme' },
-  { src: '/images/Ugo_Ladant.jpg',             name: 'Ugo Ladant',     sport: 'Course' },
+  { src: '/images/Hugo_LADANT.png',             name: 'Ugo Ladant',     sport: 'Course' },
   { src: '/images/maelle.jpg',                 name: 'Maelle',         sport: 'Sport' },
   { src: '/images/Kévin.jpeg',                  name: 'Kévin',          sport: 'Sport' },
   { src: '/images/Raphael_nguyen.jpeg',         name: 'Raphael Nguyen', sport: 'Cyclisme' },
+  { src: '/images/Mathieu_Palmier.jpeg',         name: 'Mathieu', sport: 'Rugby' },
+  { src: '/images/Enzo_Delagnes.jpeg',         name: 'Enzo Delagnes', sport: 'Rugby' },
 ]
 
 export default function Blog() {
@@ -83,11 +85,6 @@ export default function Blog() {
                 <p className="text-red-sc text-xs tracking-widest uppercase font-bold">
                   {sport}
                 </p>
-              </div>
-
-              {/* Badge Self Checks */}
-              <div className="absolute top-3 right-3 bg-red-sc/90 text-white text-[0.6rem] font-bold tracking-widest uppercase px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-all duration-300">
-                Self Checks
               </div>
 
             </div>
