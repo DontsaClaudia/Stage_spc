@@ -6,7 +6,7 @@ import CtaBand from '../components/CtaBand'
 const athletes = [
   { src: '/images/Riahi_ABDELLAH.png', name: 'Abdallah Riahi', sport: 'Athlétisme' },
   { src: '/images/Elise_MAELLET.png',         name: 'Elise Meallet',  sport: 'Sport' },
-  { src: '/images/Flavin.jpg',                 name: 'Flavin',         sport: 'Sport' },
+  { src: '/images/Flavin_guieu.jpeg',                 name: 'Flavin GUIEU',         sport: 'Football' },
   { src: '/images/Baptiste_Arnaud.jpeg',        name: 'Baptiste Arnaud',sport: 'Cyclisme' },
   { src: '/images/Hugo_LADANT.png',             name: 'Ugo Ladant',     sport: 'Course' },
   { src: '/images/maelle.jpg',                 name: 'Maelle',         sport: 'Sport' },
