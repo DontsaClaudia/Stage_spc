@@ -4,16 +4,16 @@ import CtaBand from '../components/CtaBand'
 
 // Photos des athlètes 
 const athletes = [
-  { src: '/images/Riahi_ABDELLAH.png', name: 'Abdallah Riahi', sport: 'Athlétisme' },
+  { src: '/images/Riahi_ABDELLAH.png',        name: 'Abdallah Riahi', sport: 'Athlétisme' },
   { src: '/images/Elise_MAELLET.png',         name: 'Elise Meallet',  sport: 'Sport' },
-  { src: '/images/Flavin_guieu.jpeg',                 name: 'Flavin GUIEU',         sport: 'Football' },
-  { src: '/images/Baptiste_Arnaud.jpeg',        name: 'Baptiste Arnaud',sport: 'Cyclisme' },
-  { src: '/images/Hugo_LADANT.png',             name: 'Ugo Ladant',     sport: 'Course' },
-  { src: '/images/maelle.jpg',                 name: 'Maelle',         sport: 'Sport' },
-  { src: '/images/Kévin.jpeg',                  name: 'Kévin',          sport: 'Sport' },
-  { src: '/images/Raphael_nguyen.jpeg',         name: 'Raphael Nguyen', sport: 'Cyclisme' },
-  { src: '/images/Mathieu_Palmier.jpeg',         name: 'Mathieu', sport: 'Rugby' },
-  { src: '/images/Enzo_Delagnes.jpeg',         name: 'Enzo Delagnes', sport: 'Rugby' },
+  { src: '/images/Flavin_guieu.jpeg',         name: 'Flavin GUIEU',         sport: 'Football' },
+  { src: '/images/Baptiste_Arnaud.jpeg',      name: 'Baptiste Arnaud',sport: 'Cyclisme' },
+  { src: '/images/Hugo_LADANT.png',           name: 'Ugo Ladant',     sport: 'Course' },
+  { src: '/images/maelle.jpg',                name: 'Maelle',         sport: 'Sport' },
+  { src: '/images/Kévin.jpeg',                name: 'Kévin',          sport: 'Sport' },
+  { src: '/images/Raphael_nguyen.jpeg',       name: 'Raphael Nguyen', sport: 'Cyclisme' },
+  { src: '/images/Mathieu_Palmier.jpeg',      name: 'Mathieu', sport: 'Rugby' },
+  { src: '/images/Enzo_Delagnes.jpeg',        name: 'Enzo Delagnes', sport: 'Rugby' },
 ]
 
 export default function Blog() {
