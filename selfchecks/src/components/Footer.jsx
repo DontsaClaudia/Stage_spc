@@ -118,7 +118,7 @@ export default function Footer() {
       {/* ── Barre du bas ── */}
       <div className="bg-navy border-t border-white/6 px-8 py-4 flex items-center justify-between flex-wrap gap-4">
         <span className="text-[0.72rem] text-muted/40 tracking-wide">
-          © 2025 Self Checks — Tous droits réservés
+          © 2026 Self Checks - Tous droits réservés
         </span>
         <span className="text-[0.72rem] text-muted/40 tracking-wide">
           Conçu à Aurillac
