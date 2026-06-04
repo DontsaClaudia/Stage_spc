@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useReveal from '../hooks/useReveal'
 import CtaBand from '../components/CtaBand'
 
@@ -157,42 +157,44 @@ function FaqItem({ question, answer }) {
 export default function NosOffres() {
   useReveal()
   useEffect(() => { window.scrollTo(0, 0) }, [])
+  const navigate = useNavigate()
 
-  const [loading, setLoading] = useState(null) 
+  const [loading, setLoading] = useState(null)
+  const [checkoutError, setCheckoutError] = useState('')
 
- const handleCheckout = async (priceId, name) => {
-  if (!priceId) {
-    window.location.href = '/contact'
-    return
-  }
-
-  setLoading(name)
-
-  try {
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        priceId,
-        offre: name,
-      }),
-    })
-
-    const data = await response.json()
-
-    if (!response.ok) {
-      throw new Error(data.error || 'Erreur Stripe')
+  const handleCheckout = async (priceId, name) => {
+    if (!priceId) {
+      navigate('/contact')
+      return
     }
 
-    window.location.href = data.url
+    setLoading(name)
+    setCheckoutError('')
 
-  } catch (error) {
-    console.error('Erreur Stripe :', error)
-    alert(error.message)
-  } finally {
-    setLoading(null)
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          priceId,
+          offre: name,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur Stripe')
+      }
+
+      window.location.assign(data.url)
+    } catch (error) {
+      console.error('Erreur Stripe :', error)
+      setCheckoutError(error.message)
+    } finally {
+      setLoading(null)
+    }
   }
-}
   return (
     <>
       {/* ── HERO ── */}
@@ -354,6 +356,12 @@ export default function NosOffres() {
     style={{ background: 'radial-gradient(ellipse, rgba(227,6,19,0.12) 0%, rgba(26,50,96,0.15) 40%, transparent 70%)' }}
     />
 </div>
+
+  {checkoutError && (
+    <p className="relative z-10 max-w-6xl mx-auto mb-6 text-center text-red-400 text-sm bg-red-sc/10 border border-red-sc/30 rounded-lg px-4 py-3">
+      {checkoutError}
+    </p>
+  )}
 
   <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
     {offres.map(({ tag, name, price, period, desc, features, icon, featured, cta, priceId  }, i) => (

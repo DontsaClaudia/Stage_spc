@@ -2,14 +2,12 @@
 
 header('Content-Type: application/json');
 
-// ---------- Réponse JSON ----------
 function jsonResponse($status, $data) {
     http_response_code($status);
     echo json_encode($data);
     exit;
 }
 
-// ---------- Vérification Authorization ----------
 $headers = getallheaders();
 
 $auth =
@@ -18,15 +16,14 @@ $auth =
     ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION']
     ?? '';
 
-$secret = 'MA_CLE_SECRETE';
+$secret = getenv('PHP_API_SECRET') ?: '';
 
-if ($auth !== "Bearer $secret") {
+if ($secret === '' || $auth !== "Bearer $secret") {
     jsonResponse(401, [
         'error' => 'Unauthorized'
     ]);
 }
 
-// ---------- Lecture JSON ----------
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (!$input) {
@@ -35,7 +32,6 @@ if (!$input) {
     ]);
 }
 
-// ---------- Vérification champs ----------
 $required = [
     'token',
     'email',
@@ -51,9 +47,7 @@ foreach ($required as $field) {
     }
 }
 
-// ---------- Connexion DB ----------
 try {
-
     $pdo = new PDO(
         'mysql:host=localhost;dbname=DATABASE_NAME;charset=utf8mb4',
         'DB_USER',
@@ -63,7 +57,22 @@ try {
         ]
     );
 
-    // ---------- Insertion ----------
+    $check = $pdo->prepare(
+        'SELECT token FROM signup_tokens WHERE stripe_session_id = :stripe_session_id LIMIT 1'
+    );
+    $check->execute([
+        ':stripe_session_id' => $input['stripe_session_id']
+    ]);
+    $existing = $check->fetch(PDO::FETCH_ASSOC);
+
+    if ($existing) {
+        jsonResponse(200, [
+            'success' => true,
+            'already_exists' => true,
+            'token' => $existing['token']
+        ]);
+    }
+
     $stmt = $pdo->prepare("
         INSERT INTO signup_tokens
         (
@@ -97,11 +106,11 @@ try {
     ]);
 
     jsonResponse(200, [
-        'success' => true
+        'success' => true,
+        'already_exists' => false
     ]);
 
 } catch (Throwable $e) {
-
     jsonResponse(500, [
         'error' => $e->getMessage()
     ]);

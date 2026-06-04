@@ -10,12 +10,6 @@ import Resiliation from './pages/Resiliation'
 import Contact from './pages/Contact'
 import ScrollToTop from './components/ScrollToTop'
 
-const PageTemp = ({ titre }) => (
-  <div className="pt-32 px-8 text-center">
-    <h1 className="font-condensed font-black text-6xl uppercase text-red-sc">{titre}</h1>
-  </div>
-)
-
 export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-ink">
