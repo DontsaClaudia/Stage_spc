@@ -1,15 +1,36 @@
 const Stripe = require('stripe')
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-function getAllowedPriceIds() {
+function getAllowedPriceIdsFromEnv() {
   return new Set(
     [
       process.env.STRIPE_PRICE_GRATUIT,
       process.env.STRIPE_PRICE_SPORTIF,
       process.env.STRIPE_PRICE_COACH_10,
       process.env.STRIPE_PRICE_SELFCHECKS,
+      // Secours si seules les variables Vite ont été copiées sur Vercel
+      process.env.VITE_PRICE_GRATUIT,
+      process.env.VITE_PRICE_SPORTIF,
+      process.env.VITE_PRICE_COACH_10,
+      process.env.VITE_PRICE_SELFCHECKS,
     ].filter(Boolean)
   )
+}
+
+async function isAllowedPriceId(priceId) {
+  const fromEnv = getAllowedPriceIdsFromEnv()
+
+  if (fromEnv.size > 0) {
+    return fromEnv.has(priceId)
+  }
+
+  // Aucune variable de prix : vérifier directement chez Stripe (évite de bloquer le checkout)
+  try {
+    const price = await stripe.prices.retrieve(priceId)
+    return price.active === true
+  } catch {
+    return false
+  }
 }
 
 module.exports = async (req, res) => {
@@ -17,11 +38,23 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const { priceId, offre } = req.body
-  const allowedPriceIds = getAllowedPriceIds()
+  if (!process.env.STRIPE_SECRET_KEY) {
+    return res.status(500).json({ error: 'STRIPE_SECRET_KEY manquant sur le serveur' })
+  }
 
-  if (!priceId || !allowedPriceIds.has(priceId)) {
-    return res.status(400).json({ error: 'Offre ou prix invalide' })
+  const { priceId, offre } = req.body
+
+  if (!priceId) {
+    return res.status(400).json({ error: 'Prix manquant' })
+  }
+
+  const allowed = await isAllowedPriceId(priceId)
+
+  if (!allowed) {
+    return res.status(400).json({
+      error:
+        'Offre ou prix invalide. Vérifiez les variables STRIPE_PRICE_* (ou VITE_PRICE_*) sur Vercel.',
+    })
   }
 
   try {

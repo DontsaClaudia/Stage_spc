@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import useReveal from '../hooks/useReveal'
 import CtaBand from '../components/CtaBand'
 
@@ -157,14 +157,15 @@ function FaqItem({ question, answer }) {
 export default function NosOffres() {
   useReveal()
   useEffect(() => { window.scrollTo(0, 0) }, [])
-  const navigate = useNavigate()
-
   const [loading, setLoading] = useState(null)
   const [checkoutError, setCheckoutError] = useState('')
 
   const handleCheckout = async (priceId, name) => {
     if (!priceId) {
-      navigate('/contact')
+      setCheckoutError(
+        'Cette offre n’est pas configurée (VITE_PRICE_* manquant). Contactez l’administrateur ou utilisez le formulaire contact.'
+      )
+      window.scrollTo({ top: 0, behavior: 'smooth' })
       return
     }
 
@@ -181,22 +182,45 @@ export default function NosOffres() {
         }),
       })
 
-      const data = await response.json()
+      let data = {}
+      try {
+        data = await response.json()
+      } catch {
+        throw new Error(
+          response.status === 404
+            ? 'API de paiement introuvable. Testez sur le site déployé (Vercel), pas en local sans proxy.'
+            : 'Réponse serveur invalide'
+        )
+      }
 
       if (!response.ok) {
         throw new Error(data.error || 'Erreur Stripe')
+      }
+
+      if (!data.url) {
+        throw new Error('URL de paiement Stripe manquante')
       }
 
       window.location.assign(data.url)
     } catch (error) {
       console.error('Erreur Stripe :', error)
       setCheckoutError(error.message)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     } finally {
       setLoading(null)
     }
   }
   return (
     <>
+      {checkoutError && (
+        <div
+          role="alert"
+          className="fixed top-24 left-1/2 -translate-x-1/2 z-50 max-w-lg w-[calc(100%-2rem)] text-center text-red-100 text-sm bg-red-950/95 border border-red-sc/50 rounded-lg px-4 py-3 shadow-xl"
+        >
+          {checkoutError}
+        </div>
+      )}
+
       {/* ── HERO ── */}
       <section className="relative min-h-[50vh] flex flex-col items-center justify-center text-center px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -356,12 +380,6 @@ export default function NosOffres() {
     style={{ background: 'radial-gradient(ellipse, rgba(227,6,19,0.12) 0%, rgba(26,50,96,0.15) 40%, transparent 70%)' }}
     />
 </div>
-
-  {checkoutError && (
-    <p className="relative z-10 max-w-6xl mx-auto mb-6 text-center text-red-400 text-sm bg-red-sc/10 border border-red-sc/30 rounded-lg px-4 py-3">
-      {checkoutError}
-    </p>
-  )}
 
   <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
     {offres.map(({ tag, name, price, period, desc, features, icon, featured, cta, priceId  }, i) => (
