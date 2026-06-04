@@ -10,8 +10,8 @@ const links = [
   { to: '/',            label: 'Accueil' },
   { to: '/application', label: "L'Application" },
   { to: '/offres',      label: 'Nos Offres' },
-  { to: '/blog',        label: 'Blog' },
-  { to: '/contact',     label: 'Infos' },
+  { to: '/temoignages', label: 'Témoignages' },
+  { to: '/contact',     label: 'Contact' },
 ]
 
 export default function Navbar() {
@@ -67,7 +67,7 @@ return (
 
     {/* Navbar sans le logo — hauteur contrôlée indépendamment */}
     <nav className={`navbar-wrap fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-8 transition-all duration-500
-      ${scrolled ? 'py-3' : 'py-3'}
+      ${scrolled ? 'scrolled' : ''}
       ${visible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
     `}>
 

@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Accueil from './pages/Accueil'
@@ -21,7 +21,8 @@ export default function App() {
           <Route path="/application" element={<Application />} />
           <Route path="/offres"      element={<NosOffres />} />
           <Route path="/contact"     element={<Contact />} />
-          <Route path="/blog"        element={<Blog />} />
+          <Route path="/temoignages" element={<Blog />} />
+          <Route path="/blog"        element={<Navigate to="/temoignages" replace />} />
           <Route path="/success"     element={<Success />} />
           <Route path="/resiliation" element={<Resiliation />} />
           

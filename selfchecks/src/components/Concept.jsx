@@ -1,26 +1,27 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { ClipboardList, Target, Trophy, BarChart3 } from 'lucide-react'
 import './Concept.css'
 
 const features = [
   {
-    icon: '📋',
+    Icon: ClipboardList,
     title: 'Questionnaire journalier',
     desc: 'Évaluez votre hygiène de vie et vos sensations après chaque séance.',
   },
   {
-    icon: '🎯',
+    Icon: Target,
     title: 'Fixez vos objectifs',
     desc: 'Définissez jusqu\'à 3 objectifs personnels et suivez votre progression.',
   },
   {
-    icon: '🏆',
+    Icon: Trophy,
     title: 'Retour post-compétition',
     desc: 'Analysez votre ressenti à chaud et à froid après chaque compétition.',
   },
   {
-    icon: '📊',
+    Icon: BarChart3,
     title: 'Suivi coach',
     desc: 'Les coachs visualisent et comparent les performances de leurs athlètes.',
   },
@@ -119,16 +120,16 @@ export default function Concept() {
 
           {/* Features — système IntersectionObserver conservé */}
           <ul ref={featuresRef} className="flex flex-col gap-4 mb-8 list-none">
-            {features.map(({ icon, title, desc }) => (
-              <li key={title} className="feature-item flex items-start gap-4">
-                <div className="feature-icon-wrap w-10 h-10 min-w-[2.5rem] bg-red-sc/15 border border-red-sc/30 rounded-lg flex items-center justify-center text-lg cursor-default">
-                  {icon}
+            {features.map((feature) => (
+              <li key={feature.title} className="feature-item flex items-start gap-4">
+                <div className="feature-icon-wrap w-10 h-10 min-w-[2.5rem] bg-red-sc/15 border border-red-sc/30 rounded-lg flex items-center justify-center text-red-sc cursor-default">
+                  <feature.Icon className="w-5 h-5" strokeWidth={1.75} aria-hidden />
                 </div>
                 <div>
                   <strong className="block font-condensed font-bold text-sm tracking-widest uppercase text-cream mb-0.5">
-                    {title}
+                    {feature.title}
                   </strong>
-                  <span className="text-xs text-muted leading-relaxed">{desc}</span>
+                  <span className="text-xs text-muted leading-relaxed">{feature.desc}</span>
                 </div>
               </li>
             ))}

@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
+import { Gift } from 'lucide-react'
 
 const menuLinks = [
   { to: '/',            label: 'Accueil' },
   { to: '/application', label: 'Notre Application' },
   { to: '/offres',      label: 'Nos Offres' },
-  { to: '/blog',        label: 'Blog' },
+  { to: '/temoignages', label: 'Témoignages' },
   { to: '/contact',     label: 'Contact' },
 ]
 
@@ -99,9 +100,10 @@ export default function Footer() {
           </p>
           <Link
             to="/offres"
-            className="inline-block bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-xs tracking-widest uppercase px-6 py-3 rounded-sm transition-all duration-200 no-underline hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-xs tracking-widest uppercase px-6 py-3 rounded-sm transition-all duration-200 no-underline hover:-translate-y-0.5"
           >
-            🎁 Essai gratuit
+            <Gift className="w-4 h-4" aria-hidden />
+            Essai gratuit
           </Link>
           <div className="mt-6">
             <div className="font-condensed font-bold text-[0.78rem] tracking-[0.2em] uppercase text-red-sc mb-2">
