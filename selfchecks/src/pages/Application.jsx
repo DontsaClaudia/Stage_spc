@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useReveal from '../hooks/useReveal'
+import usePrefersReducedMotion from '../hooks/usePrefersReducedMotion'
 import CtaBand from '../components/CtaBand'
+import SectionTitle from '../components/SectionTitle'
 import './Application.css'
 
 // ── Étapes "Comment ça marche" ──
@@ -98,6 +100,12 @@ function Counter({ target, suffix = '', duration = 2000 }) {
 
 // ── Titre avec lettres animées ──
 function AnimatedTitle({ text, className }) {
+  const reduceMotion = usePrefersReducedMotion()
+
+  if (reduceMotion) {
+    return <span className={className}>{text}</span>
+  }
+
   return (
     <span className={className}>
       {text.split('').map((char, i) => (
@@ -176,10 +184,7 @@ export default function Application() {
                  Découvrez
           </p>
           {/* Titre avec lettres animées */}
-          <h1
-            className="font-condensed font-black uppercase leading-none mb-6"
-            style={{ fontSize: 'clamp(3rem, 6vw, 6rem)' }}
-          >
+          <h1 className="font-condensed font-black uppercase leading-none mb-6 text-title-hero">
             <AnimatedTitle text="Notre" className="block text-cream" />
             <AnimatedTitle text="Application" className="block text-red-sc" />
           </h1>
@@ -198,7 +203,7 @@ export default function Application() {
 
 
       {/* ── COMMENT ÇA MARCHE ── */}
-<section className="relative min-h-screen flex flex-col justify-center px-8 overflow-hidden" ref={timelineRef}>
+<section className="relative min-h-screen flex flex-col justify-center section-padding overflow-hidden" ref={timelineRef}>
          
   {/* Image de fond */}
   <div className="absolute inset-0 z-0">
@@ -213,17 +218,11 @@ export default function Application() {
 
   {/* Tout le contenu dans un div z-10 */}
   <div className="relative z-10">
-    <div className="text-center mb-8">
-      <p className="font-bold text-x tracking-[0.3em] uppercase text-red-sc mb-4">
-        Simple et efficace
-      </p>
-      <h2
-        className="font-condensed font-black uppercase leading-none text-cream"
-        style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
-      >
-        Comment ça marche ?
-      </h2>
-    </div>
+    <SectionTitle
+      label="Simple et efficace"
+      title="Comment ça marche ?"
+      className="mb-8"
+    />
 
     {/* Timeline */}
     <div className="relative max-w-3xl mx-auto">
@@ -263,18 +262,12 @@ export default function Application() {
 </section>
 
       {/* ── VIDÉOS CANVA ── */}
-      <section className="py-24 px-8 bg-ink">
-        <div className="text-center mb-12">
-          <p className="font-bold text-x tracking-[0.3em] uppercase text-red-sc mb-3">
-            En vidéo
-          </p>
-          <h2
-            className="font-condensed font-black uppercase leading-none text-cream"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
-          >
-            Nos vidéos démonstratives
-          </h2>
-        </div>
+      <section className="section-padding bg-ink">
+        <SectionTitle
+          label="En vidéo"
+          title="Nos vidéos démonstratives"
+          className="mb-12"
+        />
 
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
           {videos.map(({ title, desc, thumb, src }, i) => (
@@ -314,18 +307,12 @@ export default function Application() {
       </section>
 
       {/* ── VIDÉO DÉMO ── */}
-        <section className="py-24 px-8 bg-navy">
-        <div className="text-center mb-12">
-            <p className="text-[0.72rem] tracking-[0.3em] uppercase text-red-sc mb-3">
-            Démonstration complète
-            </p>
-            <h2
-            className="font-condensed font-black uppercase leading-none text-cream"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
-            >
-            Vidéo démo
-            </h2>
-        </div>
+        <section className="section-padding bg-navy">
+        <SectionTitle
+          label="Démonstration complète"
+          title="Vidéo démo"
+          className="mb-12"
+        />
 
         <div className="max-w-4xl mx-auto rounded-xl overflow-hidden border border-white/10">
             <video

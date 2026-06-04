@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import useReveal from '../hooks/useReveal'
 import CtaBand from '../components/CtaBand'
+import SectionTitle from '../components/SectionTitle'
 
 // Photos des athlètes 
 const athletes = [
@@ -33,15 +34,13 @@ export default function Blog() {
           <div className="absolute inset-0 bg-ink/75" />
         </div>
         <div className="relative z-10 pt-24">
-          <p className="font-condensed font-bold text-sm tracking-[0.3em] uppercase text-red-sc mb-4">
-            Témoignages
-          </p>
-          <h1
-            className="font-condensed font-black uppercase leading-none text-cream mb-4"
-            style={{ fontSize: 'clamp(3rem, 7vw, 7rem)' }}
-          >
-            Ils l'aiment déjà
-          </h1>
+          <SectionTitle
+            as="h1"
+            size="hero"
+            label="Témoignages"
+            title="Ils l'aiment déjà"
+            titleClassName="mb-4"
+          />
           <p className="text-muted max-w-xl mx-auto text-base leading-relaxed">
             Découvrez les athlètes qui font confiance à Self Checks pour améliorer leurs performances au quotidien.
           </p>
@@ -49,7 +48,7 @@ export default function Blog() {
       </section>
 
       {/* ── GALERIE MASONRY ── */}
-      <section className="py-20 px-8 bg-ink">
+      <section className="section-padding bg-ink">
         <div
           className="max-w-6xl mx-auto"
           style={{

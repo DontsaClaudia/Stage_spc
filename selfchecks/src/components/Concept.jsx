@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
+import SectionTitle from './SectionTitle'
 import { ClipboardList, Target, Trophy, BarChart3 } from 'lucide-react'
 import './Concept.css'
 
@@ -39,6 +40,7 @@ const lines = [
 
 export default function Concept() {
   const featuresRef = useRef(null)
+  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,8 +65,8 @@ export default function Concept() {
 
       {/* ── Colonne gauche : photo — slide depuis la gauche ── */}
       <motion.div
-        initial={{ opacity: 0, x: -70 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        initial={reduceMotion ? false : { opacity: 0, x: -70 }}
+        whileInView={reduceMotion ? undefined : { opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 0.75, ease: [0.25, 0.46, 0.45, 0.94] }}
         className="relative overflow-hidden group min-h-[550px]"
@@ -78,7 +80,7 @@ export default function Concept() {
       </motion.div>
 
       {/* ── Colonne droite : texte ── */}
-      <div className="relative bg-ink flex flex-col justify-center px-12 py-16 overflow-hidden">
+      <div className="relative bg-ink flex flex-col justify-center section-padding overflow-hidden">
 
         {/* Lignes animées en arrière-plan */}
         <div className="concept-bg">
@@ -93,30 +95,27 @@ export default function Concept() {
 
         <div className="relative z-10">
 
-          {/* Label — slide depuis la droite */}
-          <motion.p
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, x: 50 }}
+            whileInView={reduceMotion ? undefined : { opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.55, ease: 'easeOut' }}
-            className="text-[0.72rem] tracking-[0.3em] uppercase text-red-sc mb-3"
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="mb-8"
           >
-            Notre application
-          </motion.p>
-
-          {/* Titre — slide depuis la droite avec délai */}
-          <motion.h2
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-            className="font-condensed font-black uppercase leading-none text-cream mb-8"
-            style={{ fontSize: 'clamp(2rem, 3.5vw, 3.5rem)' }}
-          >
-            Faites de chaque<br />
-            entraînement<br />
-            <span className="text-red-sc">un succès</span>
-          </motion.h2>
+            <SectionTitle
+              align="left"
+              label="Notre application"
+              title={
+                <>
+                  Faites de chaque
+                  <br />
+                  entraînement
+                  <br />
+                  <span className="text-red-sc">un succès</span>
+                </>
+              }
+            />
+          </motion.div>
 
           {/* Features — système IntersectionObserver conservé */}
           <ul ref={featuresRef} className="flex flex-col gap-4 mb-8 list-none">
@@ -137,8 +136,8 @@ export default function Concept() {
 
           {/* Bouton CTA — fade in */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.35 }}
           >

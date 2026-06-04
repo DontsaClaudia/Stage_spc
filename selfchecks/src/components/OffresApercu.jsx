@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
+import SectionTitle from './SectionTitle'
 import { Gift, Timer, ClipboardList, Star } from 'lucide-react'
 import './OffresApercu.css'
 
@@ -125,8 +126,10 @@ function OffreCard({ offre }) {
 }
 
 export default function OffresApercu() {
+  const reduceMotion = useReducedMotion()
+
   return (
-    <section className="relative py-20 px-8 overflow-hidden">
+    <section className="relative section-padding overflow-hidden">
 
       {/* ── Image de fond ── */}
       <div className="absolute inset-0 z-0">
@@ -143,28 +146,20 @@ export default function OffresApercu() {
 
         {/* En-tête animé */}
         <motion.div
-          initial={{ opacity: 0, y: -24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduceMotion ? false : { opacity: 0, y: -24 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-center mb-12"
+          className="mb-12"
         >
-          <p className="text-[0.72rem] tracking-[0.3em] uppercase text-red-sc mb-3">
-            Tarification
-          </p>
-          <h2
-            className="font-condensed font-black uppercase leading-none text-cream"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
-          >
-            Nos Offres
-          </h2>
+          <SectionTitle label="Tarification" title="Nos Offres" />
         </motion.div>
 
         {/* Grille des cartes — entrée en cascade */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={reduceMotion ? false : 'hidden'}
+          whileInView={reduceMotion ? undefined : 'visible'}
           viewport={{ once: true, amount: 0.1 }}
           className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4"
         >
@@ -175,8 +170,8 @@ export default function OffresApercu() {
 
         {/* Bouton bas */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
           className="text-center mt-10"

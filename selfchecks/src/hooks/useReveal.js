@@ -1,7 +1,19 @@
 import { useEffect } from 'react'
+import { getPrefersReducedMotion } from './usePrefersReducedMotion'
 
 export default function useReveal() {
   useEffect(() => {
+    const showAll = () => {
+      document.querySelectorAll('.reveal').forEach((el) => {
+        el.classList.add('visible')
+      })
+    }
+
+    if (getPrefersReducedMotion()) {
+      showAll()
+      return
+    }
+
     const timer = setTimeout(() => {
       const els = document.querySelectorAll('.reveal')
 
@@ -10,7 +22,6 @@ export default function useReveal() {
           entries.forEach((e) => {
             if (e.isIntersecting) {
               e.target.classList.add('visible')
-              // On arrête d'observer — l'élément reste visible pour toujours
               observer.unobserve(e.target)
             }
           })

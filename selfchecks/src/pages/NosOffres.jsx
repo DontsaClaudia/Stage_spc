@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useReveal from '../hooks/useReveal'
 import CtaBand from '../components/CtaBand'
+import SectionTitle from '../components/SectionTitle'
 
 
 // ── Les 4 offres détaillées ──
@@ -232,15 +233,13 @@ export default function NosOffres() {
           <div className="absolute inset-0 bg-ink/75" />
         </div>
         <div className="relative z-10 pt-24">
-          <p className="font-condensed font-bold text-sm tracking-[0.3em] uppercase text-red-sc mb-4">
-            Tarification
-          </p>
-          <h1
-            className="font-condensed font-black uppercase leading-none text-cream mb-4"
-            style={{ fontSize: 'clamp(3rem, 7vw, 7rem)' }}
-          >
-            Nos Offres
-          </h1>
+          <SectionTitle
+            as="h1"
+            size="hero"
+            label="Tarification"
+            title="Nos Offres"
+            titleClassName="mb-4"
+          />
           <p className="text-muted max-w-xl mx-auto text-base leading-relaxed">
             Choisissez l'offre qui correspond à vos besoins. Commencez gratuitement pendant 30 jours. Carte bancaire requise, résiliez à tout moment avant la fin de la période d'essai.
           </p>
@@ -248,13 +247,13 @@ export default function NosOffres() {
       </section>
 
 {/* ── OFFRES ── */}
-<section className="py-20 px-8 relative overflow-hidden">
+<section className="section-padding relative overflow-hidden">
 
   {/* ── Fond lignes animées style GitHub ── */}
 <div className="absolute inset-0 z-0 overflow-hidden">
   <div className="absolute inset-0 bg-ink" />
   <svg
-    className="absolute inset-0 w-full h-full"
+    className="decorative-svg absolute inset-0 w-full h-full"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMidYMid slice"
   >
@@ -371,10 +370,10 @@ export default function NosOffres() {
   </svg>
 
   {/* Halos colorés lumineux */}
-    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-sc/10 rounded-full blur-3xl animate-pulse" />
-    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-navy/50 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-red-sc/8 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
-    <div className="absolute bottom-1/3 left-1/4 w-56 h-56 bg-red-sc/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1.5s' }} />
+    <div className="decorative-halo absolute top-1/4 left-1/4 w-96 h-96 bg-red-sc/10 rounded-full blur-3xl animate-pulse" />
+    <div className="decorative-halo absolute bottom-1/4 right-1/4 w-96 h-96 bg-navy/50 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+    <div className="decorative-halo absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-red-sc/8 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
+    <div className="decorative-halo absolute bottom-1/3 left-1/4 w-56 h-56 bg-red-sc/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1.5s' }} />
     {/* Zone claire centrale comme GitHub */}
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full blur-3xl"
     style={{ background: 'radial-gradient(ellipse, rgba(227,6,19,0.12) 0%, rgba(26,50,96,0.15) 40%, transparent 70%)' }}
@@ -385,7 +384,7 @@ export default function NosOffres() {
     {offres.map(({ tag, name, price, period, desc, features, icon, featured, cta, priceId  }, i) => (
       <div
         key={i}
-        className={`offre-row group flex flex-row items-stretch rounded-xl border overflow-hidden transition-all duration-500 hover:-translate-y-1
+        className={`offre-row group flex flex-col md:flex-row items-stretch rounded-xl border overflow-hidden transition-all duration-500 md:hover:-translate-y-1
           ${featured
             ? 'border-red-sc/50 bg-red-sc/15 hover:bg-red-sc/20 hover:shadow-xl hover:shadow-red-sc/20'
             : 'border-white/8 bg-white/3 hover:bg-white/6 hover:border-white/15 hover:shadow-xl hover:shadow-black/30'
@@ -393,7 +392,7 @@ export default function NosOffres() {
         style={{ animationDelay: `${i * 0.15}s` }}
       >
         {/* ── Colonne gauche : icône + nom + prix ── */}
-        <div className={`flex flex-col justify-center items-start gap-3 p-6 min-w-[160px]
+        <div className={`flex flex-col justify-center items-start gap-3 p-6 w-full md:w-auto md:min-w-[160px] border-b md:border-b-0 border-white/10
           ${featured ? 'bg-red-sc/20' : 'bg-white/2'}
         `}>
           {/* Ligne rouge animée */}
@@ -482,19 +481,13 @@ export default function NosOffres() {
 </section>
 
       {/* ── FAQ ── */}
-      <section className="py-20 px-8 bg-navy">
+      <section className="section-padding bg-navy">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="font-condensed font-bold text-sm tracking-[0.3em] uppercase text-red-sc mb-3">
-              Questions fréquentes
-            </p>
-            <h2
-              className="font-condensed font-black uppercase leading-none text-cream"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
-            >
-              FAQ
-            </h2>
-          </div>
+          <SectionTitle
+            label="Questions fréquentes"
+            title="FAQ"
+            className="mb-12"
+          />
           <div className="flex flex-col gap-3">
             {faqs.map(({ question, answer }, i) => (
               <FaqItem key={i} question={question} answer={answer} />

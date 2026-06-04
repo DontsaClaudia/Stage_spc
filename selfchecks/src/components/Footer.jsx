@@ -123,9 +123,12 @@ export default function Footer() {
         <span className="text-[0.72rem] text-muted/40 tracking-wide">
           Conçu à Aurillac
         </span>
-        <Link to="/resiliation"className="inline-block bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-xs tracking-widest uppercase px-6 py-3 rounded-sm transition-all duration-200 no-underline hover:-translate-y-0.5">
-        Gérer / résilier mon abonnement
-      </Link>
+        <Link
+          to="/resiliation"
+          className="text-[0.72rem] text-muted/70 hover:text-cream underline-offset-4 hover:underline transition-colors"
+        >
+          Gérer ou résilier mon abonnement
+        </Link>
       </div>
     </>
   )

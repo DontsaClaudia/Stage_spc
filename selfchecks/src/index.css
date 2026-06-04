@@ -19,10 +19,23 @@
 }
 
 /* @layer utilities : on crée une classe Tailwind personnalisée réutilisable */
+@layer components {
+  .section-padding {
+    @apply py-20 px-8;
+  }
+}
+
 @layer utilities {
-  /* clip-skew : découpe le bouton en forme de parallélogramme (effet sport) */
   .clip-skew {
     clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
+  }
+
+  .text-title-hero {
+    font-size: clamp(3rem, 7vw, 7rem);
+  }
+
+  .text-title-section {
+    font-size: clamp(2rem, 4vw, 3.5rem);
   }
 }
 
@@ -99,5 +112,62 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+/* ── prefers-reduced-motion : animations décoratives désactivées ── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .reveal.visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .offre-row {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .animate-fadeup,
+  .animate-fadeup-slow,
+  .animate-line,
+  .animate-scroll-chevron-1,
+  .animate-scroll-chevron-2 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .decorative-halo {
+    animation: none !important;
+  }
+
+  .decorative-svg animate,
+  .decorative-svg animateTransform {
+    display: none;
+  }
+
+  .concept-line {
+    animation: none !important;
+    opacity: 0.2;
+  }
+
+  .feature-item,
+  .feature-item.visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .letter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
