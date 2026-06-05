@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Gift, Check } from 'lucide-react'
 import SectionTitle from './SectionTitle'
+import { useTranslation } from '../i18n/useTranslation'
 
 export default function CtaBand() {
+  const { t } = useTranslation()
   const reduceMotion = useReducedMotion()
 
   const motionProps = (delay = 0) =>
@@ -47,7 +49,7 @@ export default function CtaBand() {
         >
           <Gift className="w-4 h-4 text-red-sc" aria-hidden />
           <span className="text-red-sc text-xs font-bold tracking-widest uppercase">
-            Offre de bienvenue
+            {t('ctaBand.badge')}
           </span>
         </motion.div>
 
@@ -55,9 +57,9 @@ export default function CtaBand() {
           <SectionTitle
             title={
               <>
-                Prêt à vous
+                {t('ctaBand.title1')}
                 <br />
-                <span className="text-red-sc">dépasser ?</span>
+                <span className="text-red-sc">{t('ctaBand.titleHighlight')}</span>
               </>
             }
             titleClassName="text-title-section"
@@ -68,8 +70,7 @@ export default function CtaBand() {
           {...motionProps(0.2)}
           className="text-muted text-sm leading-relaxed mb-8 max-w-lg mx-auto"
         >
-          Rejoignez Self Checks dès aujourd&apos;hui et commencez votre essai gratuit.
-          Une carte bancaire sera requise - 30 jours offerts, sans engagement.
+          {t('ctaBand.description')}
         </motion.p>
 
         <motion.div
@@ -83,7 +84,7 @@ export default function CtaBand() {
             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
             <span className="inline-flex items-center gap-2">
               <Gift className="w-4 h-4" aria-hidden />
-              Essayer gratuitement
+              {t('ctaBand.tryFree')}
             </span>
           </Link>
 
@@ -91,7 +92,7 @@ export default function CtaBand() {
             to="/contact"
             className="border-2 border-white/30 hover:border-white text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm transition-all duration-200 hover:-translate-y-0.5 no-underline"
           >
-            Nous contacter
+            {t('ctaBand.contact')}
           </Link>
         </motion.div>
 
@@ -100,15 +101,15 @@ export default function CtaBand() {
           className="mt-6 text-white/30 text-xs tracking-widest uppercase flex flex-wrap items-center justify-center gap-x-3 gap-y-1"
         >
           <span className="inline-flex items-center gap-1">
-            <Check className="w-3 h-3" aria-hidden /> Sans engagement
+            <Check className="w-3 h-3" aria-hidden /> {t('ctaBand.trust.noCommitment')}
           </span>
           <span className="hidden sm:inline">·</span>
           <span className="inline-flex items-center gap-1">
-            <Check className="w-3 h-3" aria-hidden /> Aucun prélèvement
+            <Check className="w-3 h-3" aria-hidden /> {t('ctaBand.trust.noCharge')}
           </span>
           <span className="hidden sm:inline">·</span>
           <span className="inline-flex items-center gap-1">
-            <Check className="w-3 h-3" aria-hidden /> Accès immédiat
+            <Check className="w-3 h-3" aria-hidden /> {t('ctaBand.trust.immediate')}
           </span>
         </motion.p>
       </div>

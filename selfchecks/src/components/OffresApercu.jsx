@@ -1,43 +1,16 @@
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import SectionTitle from './SectionTitle'
+import { useTranslation } from '../i18n/useTranslation'
 import { Gift, Timer, ClipboardList, Star } from 'lucide-react'
 import './OffresApercu.css'
 
-const offres = [
-  {
-    tag: '★ Populaire',
-    name: 'Démo\nGratuite',
-    price: '30 jours offerts',
-    desc: 'Découvrez l\'application gratuitement pendant 30 jours.',
-    Icon: Gift,
-    featured: true,
-  },
-  {
-    tag: 'Sportifs',
-    name: 'Sportif',
-    price: '14.99€ / an',
-    desc: 'Auto-évaluation complète et suivi de vos performances.',
-    Icon: Timer,
-    featured: false,
-  },
-  {
-    tag: 'Coachs',
-    name: 'Coach',
-    price: 'Dès 49.99€ / an',
-    desc: 'Suivez et évaluez la progression de vos athlètes.',
-    Icon: ClipboardList,
-    featured: false,
-  },
-  {
-    tag: 'Sur mesure',
-    name: 'Made by\nSelf Checks',
-    price: '100€ / an',
-    desc: 'On crée les comptes de vos sportifs pour vous.',
-    Icon: Star,
-    featured: false,
-  },
+const OFFER_CARDS = [
+  { id: 'demo', Icon: Gift, featured: true },
+  { id: 'sportif', Icon: Timer, featured: false },
+  { id: 'coach', Icon: ClipboardList, featured: false },
+  { id: 'madeBy', Icon: Star, featured: false },
 ]
 
 // Variants Framer Motion pour les cartes en cascade
@@ -53,7 +26,7 @@ const cardVariants = {
 }
 
 // Carte individuelle avec spotlight souris
-function OffreCard({ offre }) {
+function OffreCard({ offre, ctaLabel }) {
   const { tag, name, price, desc, Icon, featured } = offre
   const cardRef = useRef(null)
 
@@ -119,14 +92,23 @@ function OffreCard({ offre }) {
             : 'bg-transparent text-white border-white/30 hover:border-white hover:bg-white/10'
           }`}
       >
-        Obtenir
+        {ctaLabel}
       </Link>
     </motion.div>
   )
 }
 
 export default function OffresApercu() {
+  const { t } = useTranslation()
   const reduceMotion = useReducedMotion()
+  const offres = useMemo(
+    () =>
+      OFFER_CARDS.map(({ id, Icon, featured }) => {
+        const copy = t(`offresApercu.offers.${id}`)
+        return { Icon, featured, ...copy }
+      }),
+    [t]
+  )
 
   return (
     <section className="relative section-padding overflow-hidden">
@@ -152,7 +134,7 @@ export default function OffresApercu() {
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="mb-12"
         >
-          <SectionTitle label="Tarification" title="Nos Offres" />
+          <SectionTitle label={t('offresApercu.label')} title={t('offresApercu.title')} />
         </motion.div>
 
         {/* Grille des cartes — entrée en cascade */}
@@ -164,7 +146,7 @@ export default function OffresApercu() {
           className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4"
         >
           {offres.map((offre, i) => (
-            <OffreCard key={i} offre={offre} />
+            <OffreCard key={i} offre={offre} ctaLabel={t('offresApercu.getOffer')} />
           ))}
         </motion.div>
 
@@ -180,7 +162,7 @@ export default function OffresApercu() {
             to="/offres"
             className="clip-skew inline-block bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-sm tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:-translate-y-0.5 no-underline"
           >
-            Voir toutes nos offres
+            {t('offresApercu.viewAll')}
           </Link>
         </motion.div>
 

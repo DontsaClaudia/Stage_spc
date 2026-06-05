@@ -3,29 +3,14 @@ import { useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import SectionTitle from './SectionTitle'
 import { ClipboardList, Target, Trophy, BarChart3 } from 'lucide-react'
+import { useTranslation } from '../i18n/useTranslation'
 import './Concept.css'
 
-const features = [
-  {
-    Icon: ClipboardList,
-    title: 'Questionnaire journalier',
-    desc: 'Évaluez votre hygiène de vie et vos sensations après chaque séance.',
-  },
-  {
-    Icon: Target,
-    title: 'Fixez vos objectifs',
-    desc: 'Définissez jusqu\'à 3 objectifs personnels et suivez votre progression.',
-  },
-  {
-    Icon: Trophy,
-    title: 'Retour post-compétition',
-    desc: 'Analysez votre ressenti à chaud et à froid après chaque compétition.',
-  },
-  {
-    Icon: BarChart3,
-    title: 'Suivi coach',
-    desc: 'Les coachs visualisent et comparent les performances de leurs athlètes.',
-  },
+const featureIcons = [
+  { Icon: ClipboardList, key: 'daily' },
+  { Icon: Target, key: 'goals' },
+  { Icon: Trophy, key: 'competition' },
+  { Icon: BarChart3, key: 'coach' },
 ]
 
 const lines = [
@@ -39,6 +24,7 @@ const lines = [
 ]
 
 export default function Concept() {
+  const { t } = useTranslation()
   const featuresRef = useRef(null)
   const reduceMotion = useReducedMotion()
 
@@ -104,14 +90,14 @@ export default function Concept() {
           >
             <SectionTitle
               align="left"
-              label="Notre application"
+              label={t('concept.label')}
               title={
                 <>
-                  Faites de chaque
+                  {t('concept.title1')}
                   <br />
-                  entraînement
+                  {t('concept.title2')}
                   <br />
-                  <span className="text-red-sc">un succès</span>
+                  <span className="text-red-sc">{t('concept.titleHighlight')}</span>
                 </>
               }
             />
@@ -119,16 +105,18 @@ export default function Concept() {
 
           {/* Features — système IntersectionObserver conservé */}
           <ul ref={featuresRef} className="flex flex-col gap-4 mb-8 list-none">
-            {features.map((feature) => (
-              <li key={feature.title} className="feature-item flex items-start gap-4">
+            {featureIcons.map((feature) => (
+              <li key={feature.key} className="feature-item flex items-start gap-4">
                 <div className="feature-icon-wrap w-10 h-10 min-w-[2.5rem] bg-red-sc/15 border border-red-sc/30 rounded-lg flex items-center justify-center text-red-sc cursor-default">
                   <feature.Icon className="w-5 h-5" strokeWidth={1.75} aria-hidden />
                 </div>
                 <div>
                   <strong className="block font-condensed font-bold text-sm tracking-widest uppercase text-cream mb-0.5">
-                    {feature.title}
+                    {t(`concept.features.${feature.key}.title`)}
                   </strong>
-                  <span className="text-xs text-muted leading-relaxed">{feature.desc}</span>
+                  <span className="text-xs text-muted leading-relaxed">
+                    {t(`concept.features.${feature.key}.desc`)}
+                  </span>
                 </div>
               </li>
             ))}
@@ -145,7 +133,7 @@ export default function Concept() {
               to="/application"
               className="clip-skew self-start inline-block bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-3.5 transition-all duration-200 hover:-translate-y-0.5 no-underline"
             >
-              Découvrir l'application
+              {t('concept.cta')}
             </Link>
           </motion.div>
 

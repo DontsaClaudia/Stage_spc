@@ -1,17 +1,16 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useReveal from '../hooks/useReveal'
 import usePrefersReducedMotion from '../hooks/usePrefersReducedMotion'
 import CtaBand from '../components/CtaBand'
 import SectionTitle from '../components/SectionTitle'
+import { useTranslation } from '../i18n/useTranslation'
 import './Application.css'
 
-// ── Étapes "Comment ça marche" ──
-const steps = [
+const STEP_META = [
   {
     number: '01',
-    title: 'Crée ton compte',
-    desc: 'Inscris-toi en tant qu\'athlète ou coach en quelques secondes. Choisis ton profil et commence immédiatement.',
+    key: '1',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6 text-red-sc">
         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -21,8 +20,7 @@ const steps = [
   },
   {
     number: '02',
-    title: 'Évalue tes performances',
-    desc: 'Après chaque entraînement ou compétition, réponds au questionnaire d\'auto-évaluation pour analyser tes sensations.',
+    key: '2',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6 text-red-sc">
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z" />
@@ -32,8 +30,7 @@ const steps = [
   },
   {
     number: '03',
-    title: 'Progresse avec méthode',
-    desc: 'Fixe tes objectifs, suis ton évolution à travers les graphiques pour t\'améliorer continuellement.',
+    key: '3',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6 text-red-sc">
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
@@ -43,24 +40,10 @@ const steps = [
   },
 ]
 
-// ── Vidéos Canva (placeholders) ──
-const videos = [
-  {
-    title: 'Pourquoi s\'auto-évaluer ?',
-    desc: 'Comprendre l\'importance de l\'auto-évaluation dans la progression sportive.',
-    thumb: '/images/athlete1.avif',
-  },
-  {
-    title: 'Pourquoi Self Checks ?',
-    desc: 'Découvrez les avantages de l\'utilisation de Self Checks pour améliorer votre performance sportive.',
-    thumb: '/images/athlete2.avif',
-    src: '/images/selfchecks2.mp4',
-  },
-  {
-    title: 'Témoignages d\'athlètes',
-    desc: 'Ils aiment Self Checks et ils sont contents de partager leur expérience.',
-    thumb: '/images/athlete3.avif',
-  },
+const VIDEO_META = [
+  { key: 'why', thumb: '/images/athlete1.avif' },
+  { key: 'product', thumb: '/images/athlete2.avif', src: '/images/selfchecks2.mp4' },
+  { key: 'testimonials', thumb: '/images/athlete3.avif' },
 ]
 
 // ── Compteurs animés ──
@@ -122,6 +105,25 @@ function AnimatedTitle({ text, className }) {
 }
 
 export default function Application() {
+  const { t } = useTranslation()
+  const steps = useMemo(
+    () =>
+      STEP_META.map((step) => ({
+        ...step,
+        title: t(`application.steps.${step.key}.title`),
+        desc: t(`application.steps.${step.key}.desc`),
+      })),
+    [t]
+  )
+  const videos = useMemo(
+    () =>
+      VIDEO_META.map((video) => {
+        const copy = t(`application.videos.${video.key}`)
+        return { ...video, title: copy.title, desc: copy.desc }
+      }),
+    [t]
+  )
+
   useReveal()
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
@@ -181,23 +183,15 @@ export default function Application() {
         {/* Contenu */}
         <div className="relative z-10 pt-24">
           <p className="font-bold text-x tracking-[0.3em] uppercase text-red-sc mb-4">
-                 Découvrez
+            {t('application.label')}
           </p>
-          {/* Titre avec lettres animées */}
           <h1 className="font-condensed font-black uppercase leading-none mb-6 text-title-hero">
-            <AnimatedTitle text="Notre" className="block text-cream" />
-            <AnimatedTitle text="Application" className="block text-red-sc" />
+            <AnimatedTitle text={t('application.title1')} className="block text-cream" />
+            <AnimatedTitle text={t('application.title2')} className="block text-red-sc" />
           </h1>
-          <p className="text-muted max-w-3xl mx-auto leading-relaxed text-base mb-20"
-            >
-            Notre application est conçue pour aider les sportifs de tous niveaux à évaluer 
-            leur performance sportive en répondant à un questionnaire d'auto-évaluation 
-            après chaque entraînement ou compétition. Elle permet également de répondre à 
-            des questions journalières pour évaluer votre hygiène de vie, ainsi qu'un 
-            questionnaire après la compétition pour connaître votre ressenti à chaud et à 
-            froid. Les coachs peuvent également suivre et évaluer les performances de leurs 
-            athlètes.
-         </p>
+          <p className="text-muted max-w-3xl mx-auto leading-relaxed text-base mb-20">
+            {t('application.description')}
+          </p>
         </div>
       </section>
 
@@ -219,8 +213,8 @@ export default function Application() {
   {/* Tout le contenu dans un div z-10 */}
   <div className="relative z-10">
     <SectionTitle
-      label="Simple et efficace"
-      title="Comment ça marche ?"
+      label={t('application.howLabel')}
+      title={t('application.howTitle')}
       className="mb-8"
     />
 
@@ -264,8 +258,8 @@ export default function Application() {
       {/* ── VIDÉOS CANVA ── */}
       <section className="section-padding bg-ink">
         <SectionTitle
-          label="En vidéo"
-          title="Nos vidéos démonstratives"
+          label={t('application.videosLabel')}
+          title={t('application.videosTitle')}
           className="mb-12"
         />
 
@@ -309,8 +303,8 @@ export default function Application() {
       {/* ── VIDÉO DÉMO ── */}
         <section className="section-padding bg-navy">
         <SectionTitle
-          label="Démonstration complète"
-          title="Vidéo démo"
+          label={t('application.demoLabel')}
+          title={t('application.demoTitle')}
           className="mb-12"
         />
 

@@ -1,127 +1,9 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect, useMemo } from 'react'
 import useReveal from '../hooks/useReveal'
 import CtaBand from '../components/CtaBand'
 import SectionTitle from '../components/SectionTitle'
-
-
-// ── Les 4 offres détaillées ──
-const offres = [
-  {
-    tag: '★ Le plus populaire',
-    name: 'Démo Gratuite',
-    price: 'Gratuit',
-    priceId: import.meta.env.VITE_PRICE_GRATUIT,
-    period: '30 jours',
-    desc: 'La démonstration de notre application permettra aux sportifs de découvrir comment l\'auto-évaluation peut les aider à améliorer leur performance et atteindre leurs objectifs.',
-    features: [
-      '1 compte sportif ouvert pendant 30 jours',
-      'Questionnaire journalier',
-      'Fixation d\'objectifs',
-      'Retour post-compétition',
-      'Carte bancaire requise',
-      'Résiliation possible à tout moment',
-    ],
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-8 h-8">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
-      </svg>
-    ),
-    featured: true,
-    cta: 'Commencer gratuitement',
-  },
-  {
-    tag: 'Sportifs',
-    name: 'Sportif',
-    price: '14.99€',
-    priceId: import.meta.env.VITE_PRICE_SPORTIF,
-    period: 'par an',
-    desc: 'L\'application vous permet de vous autoévaluer, fixer vos objectifs personnels et progresser dans votre performance. Enregistrez et analysez facilement vos séances d\'entraînement, compétitions et performances quotidiennes.',
-    features: [
-      '1 compte sportif',
-      'Questionnaire journalier illimité',
-      'Fixation d\'objectifs personnels',
-      'Retour post-entraînement',
-      'Retour post-compétition',
-      'Abonnement annuel : 14.99€',
-    ],
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-8 h-8">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-      </svg>
-    ),
-    featured: false,
-    cta: 'Choisir Sportif',
-  },
-  {
-    tag: 'Coachs',
-    name: 'Coach',
-    price: '49.99€',
-    priceId: import.meta.env.VITE_PRICE_COACH_10,
-    period: 'par an',
-    desc: 'L\'application permet aux coachs d\'évaluer et de suivre la progression des sportifs par rapport aux objectifs fixés. En enregistrant et analysant les performances individuelles, vous pouvez comparer les résultats, identifier les domaines à améliorer et ajuster l\'entraînement.',
-    features: [
-      'Suivi de sportifs : 49.99€ / an',
-      'Tableau de bord coach',
-      'Suivi individuel des athlètes',
-      'Comparaison des performances',
-    ],
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-8 h-8">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-      </svg>
-    ),
-    featured: false,
-    cta: 'Choisir Coach',
-  },
-  {
-    tag: 'Sur mesure',
-    name: 'Made by Self Checks',
-    price: '100€',
-    priceId: import.meta.env.VITE_PRICE_SELFCHECKS,
-    period: 'par an',
-    desc: 'Lors de votre première connexion à Self Checks, nous vous offrons la possibilité de nous confier la création des comptes de vos sportifs. Cette fonctionnalité vous permettra de gagner du temps et d\'être plus disponible aux côtés de vos joueurs.',
-    features: [
-      'Création des comptes sportifs',
-      'Configuration personnalisée',
-      'Accompagnement à la prise en main',
-      'Support dédié',
-      'Idéal pour les grands clubs',
-    ],
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-8 h-8">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
-    featured: false,
-    cta: 'Choisir By_SelfChecks',
-  },
-]
-
-// ── FAQ ──
-const faqs = [
-  {
-    question: 'Est-ce que je dois entrer ma carte bancaire pour l\'essai gratuit ?',
-    answer: 'Oui, une carte bancaire est requise pour démarrer l\'essai gratuit. Vous ne serez pas prélevé pendant les 30 premiers jours. À l\'issue de cette période, si vous ne résiliez pas votre abonnement, le prélèvement correspondant à l\'offre choisie sera effectué automatiquement.',
-  },
-  {
-    question: 'Que se passe-t-il à la fin des 30 jours d\'essai ?',
-    answer: 'À la fin de votre période d\'essai, si vous n\'avez pas résilié, vous serez automatiquement prélevé selon l\'offre choisie. Vous pouvez résilier à tout moment avant la fin des 30 jours sans frais.',
-  },
-  {
-    question: 'Puis-je changer ou résilier mon offre en cours?',
-    answer: 'Oui, vous pouvez upgrader ou résilier votre offre à tout moment. Pour cela il suffit cliquer sur le bouton en bas de la page "Gerer ou Résilier mon abonnement" , renseigner votre email lors de l\'achat et suivre les instructions stripe . Le changement d\'offre prendra effet immédiatement.',
-  },
-  {
-    question: 'Comment fonctionne l\'offre Coach ?',
-    answer: 'L\'offre Coach vous permet de suivre et d\'évaluer les performances de plusieurs athlètes simultanément. Le tarif de 49.99€ par an couvre le suivi de tous les athlètes que vous souhaitez ajouter à votre tableau de bord coach, sans limite de nombre.',
-  },
-  {
-    question: 'Comment fonctionne l\'offre Made By SelfChecks ?',
-    answer: 'L\'offre Made By SelfChecks vous permet de nous confier la création des comptes de vos sportifs, vous aurez la possibilité de nous fournir les informations nécessaires pour que nous puissions créer les comptes de vos athlètes selon vos besoins. Cette fonctionnalité est idéale pour gagner du temps et être plus disponibles aux côtés de vos joueurs. Le coût de 100€  couvre la création des comptes, la configuration personnalisée, l\'accompagnement à la prise en main. N\'hésitez pas à nous contacter via le formulaire de contact après votre achat pour plus d\'informations.',
-  },
-]
+import { useTranslation } from '../i18n/useTranslation'
+import { buildOffers } from '../data/offerMeta'
 
 // ── Composant FAQ item ──
 function FaqItem({ question, answer }) {
@@ -156,21 +38,23 @@ function FaqItem({ question, answer }) {
 }
 
 export default function NosOffres() {
+  const { t } = useTranslation()
+  const offres = useMemo(() => buildOffers(t), [t])
+  const faqs = t('nosOffres.faq')
+
   useReveal()
   useEffect(() => { window.scrollTo(0, 0) }, [])
   const [loading, setLoading] = useState(null)
   const [checkoutError, setCheckoutError] = useState('')
 
-  const handleCheckout = async (priceId, name) => {
+  const handleCheckout = async (priceId, stripeOffre, offerId) => {
     if (!priceId) {
-      setCheckoutError(
-        'Cette offre n’est pas configurée (VITE_PRICE_* manquant). Contactez l’administrateur ou utilisez le formulaire contact.'
-      )
+      setCheckoutError(t('nosOffres.errors.notConfigured'))
       window.scrollTo({ top: 0, behavior: 'smooth' })
       return
     }
 
-    setLoading(name)
+    setLoading(offerId)
     setCheckoutError('')
 
     try {
@@ -179,7 +63,7 @@ export default function NosOffres() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           priceId,
-          offre: name,
+          offre: stripeOffre,
         }),
       })
 
@@ -189,17 +73,17 @@ export default function NosOffres() {
       } catch {
         throw new Error(
           response.status === 404
-            ? 'API de paiement introuvable. Testez sur le site déployé (Vercel), pas en local sans proxy.'
-            : 'Réponse serveur invalide'
+            ? t('nosOffres.errors.apiMissing')
+            : t('nosOffres.errors.invalidResponse')
         )
       }
 
       if (!response.ok) {
-        throw new Error(data.error || 'Erreur Stripe')
+        throw new Error(data.error || t('nosOffres.errors.stripe'))
       }
 
       if (!data.url) {
-        throw new Error('URL de paiement Stripe manquante')
+        throw new Error(t('nosOffres.errors.missingUrl'))
       }
 
       window.location.assign(data.url)
@@ -236,12 +120,12 @@ export default function NosOffres() {
           <SectionTitle
             as="h1"
             size="hero"
-            label="Tarification"
-            title="Nos Offres"
+            label={t('nosOffres.label')}
+            title={t('nosOffres.title')}
             titleClassName="mb-4"
           />
           <p className="text-muted max-w-xl mx-auto text-base leading-relaxed">
-            Choisissez l'offre qui correspond à vos besoins. Commencez gratuitement pendant 30 jours. Carte bancaire requise, résiliez à tout moment avant la fin de la période d'essai.
+            {t('nosOffres.subtitle')}
           </p>
         </div>
       </section>
@@ -381,7 +265,7 @@ export default function NosOffres() {
 </div>
 
   <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-    {offres.map(({ tag, name, price, period, desc, features, icon, featured, cta, priceId  }, i) => (
+    {offres.map(({ id, tag, name, price, period, desc, features, icon, featured, cta, priceId, stripeOffre }, i) => (
       <div
         key={i}
         className={`offre-row group flex flex-col md:flex-row items-stretch rounded-xl border overflow-hidden transition-all duration-500 md:hover:-translate-y-1
@@ -454,22 +338,22 @@ export default function NosOffres() {
 
          {/* Bouton */}
             <button
-            onClick={() => handleCheckout(priceId, name)}
-            disabled={loading === name}
+            onClick={() => handleCheckout(priceId, stripeOffre, id)}
+            disabled={loading === id}
             className={`self-start font-condensed font-bold text-sm tracking-widest uppercase py-2.5 px-6 rounded-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer
                 ${featured
                 ? 'bg-white text-red-sc hover:bg-white/90'
                 : 'bg-red-sc hover:bg-red-dark text-white hover:shadow-lg hover:shadow-red-sc/30'
                 }
-                ${loading === name ? 'opacity-70 cursor-wait' : ''}
+                ${loading === id ? 'opacity-70 cursor-wait' : ''}
             `}
             >
-            {loading === name ? (
+            {loading === id ? (
                 <span className="flex items-center gap-2">
                 <svg className="w-3 h-3 animate-spin" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="30 70" />
                 </svg>
-                Chargement...
+                {t('nosOffres.loading')}
                 </span>
             ) : cta}
             </button>
@@ -484,13 +368,13 @@ export default function NosOffres() {
       <section className="section-padding bg-navy">
         <div className="max-w-3xl mx-auto">
           <SectionTitle
-            label="Questions fréquentes"
-            title="FAQ"
+            label={t('nosOffres.faqLabel')}
+            title={t('nosOffres.faqTitle')}
             className="mb-12"
           />
           <div className="flex flex-col gap-3">
-            {faqs.map(({ question, answer }, i) => (
-              <FaqItem key={i} question={question} answer={answer} />
+            {faqs.map(({ q, a }, i) => (
+              <FaqItem key={i} question={q} answer={a} />
             ))}
           </div>
         </div>

@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { CheckCircle2 } from 'lucide-react'
+import { useTranslation } from '../i18n/useTranslation'
 
 const inputClass =
   'mt-1 w-full rounded-xl border border-white/10 bg-white/5 text-cream placeholder:text-muted/60 px-4 py-2.5 outline-none focus:border-red-sc/50 focus:ring-1 focus:ring-red-sc/30 transition-colors'
 
 export default function Contact() {
+  const { t } = useTranslation()
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -42,10 +44,10 @@ export default function Contact() {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Erreur lors de l’envoi')
+        throw new Error(data.error || t('contact.error'))
       }
 
-      setStatus('Message envoyé avec succès.')
+      setStatus(t('contact.success'))
       setStatusOk(true)
 
       setForm({
@@ -71,18 +73,15 @@ export default function Contact() {
 
           <div className="relative z-10">
             <p className="font-condensed font-bold text-sm tracking-[0.3em] uppercase text-red-sc mb-4">
-              Contact
+              {t('contact.label')}
             </p>
             <h1 className="font-condensed font-black text-4xl sm:text-5xl uppercase text-cream leading-none">
-              Envoyez-nous <br /> un message
+              {t('contact.title')}
             </h1>
           </div>
 
           <div className="relative z-10">
-            <p className="text-muted text-sm leading-relaxed max-w-sm">
-              Une question sur Self Checks, nos offres ou votre abonnement ?
-              Remplissez le formulaire, nous vous répondrons rapidement.
-            </p>
+            <p className="text-muted text-sm leading-relaxed max-w-sm">{t('contact.intro')}</p>
           </div>
         </div>
 
@@ -90,7 +89,7 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div>
               <label className="text-xs font-medium text-muted uppercase tracking-wider">
-                Votre nom complet
+                {t('contact.nameLabel')}
               </label>
               <input
                 name="name"
@@ -98,14 +97,14 @@ export default function Contact() {
                 onChange={handleChange}
                 type="text"
                 required
-                placeholder="Votre nom"
+                placeholder={t('contact.namePlaceholder')}
                 className={inputClass}
               />
             </div>
 
             <div>
               <label className="text-xs font-medium text-muted uppercase tracking-wider">
-                Email
+                {t('contact.emailLabel')}
               </label>
               <input
                 name="email"
@@ -113,28 +112,28 @@ export default function Contact() {
                 onChange={handleChange}
                 type="email"
                 required
-                placeholder="email@exemple.com"
+                placeholder={t('contact.emailPlaceholder')}
                 className={inputClass}
               />
             </div>
 
             <div>
               <label className="text-xs font-medium text-muted uppercase tracking-wider">
-                Téléphone
+                {t('contact.phoneLabel')}
               </label>
               <input
                 name="phone"
                 value={form.phone}
                 onChange={handleChange}
                 type="tel"
-                placeholder="+33 6 00 00 00 00"
+                placeholder={t('contact.phonePlaceholder')}
                 className={inputClass}
               />
             </div>
 
             <div>
               <label className="text-xs font-medium text-muted uppercase tracking-wider">
-                Message
+                {t('contact.messageLabel')}
               </label>
               <textarea
                 name="message"
@@ -142,7 +141,7 @@ export default function Contact() {
                 onChange={handleChange}
                 rows="4"
                 required
-                placeholder="Expliquez-nous votre demande"
+                placeholder={t('contact.messagePlaceholder')}
                 className={`${inputClass} resize-none`}
               />
             </div>
@@ -152,7 +151,7 @@ export default function Contact() {
               disabled={loading}
               className="mt-1 clip-skew bg-red-sc hover:bg-red-dark disabled:opacity-60 text-white font-condensed font-bold uppercase tracking-widest py-3.5 transition-all duration-200 hover:-translate-y-0.5"
             >
-              {loading ? 'Envoi...' : 'Envoyer la demande'}
+              {loading ? t('contact.submitting') : t('contact.submit')}
             </button>
 
             {status && (

@@ -1,62 +1,63 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
+import { useTranslation } from '../i18n/useTranslation'
 
 export default function Success() {
+  const { t } = useTranslation()
   const [searchParams] = useSearchParams()
   const sessionId = searchParams.get('session_id')
   const missingSession = !sessionId
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(!missingSession)
-  const [error, setError] = useState(
-    missingSession
-      ? 'Session de paiement introuvable. Vérifiez le lien reçu par email ou contactez-nous.'
-      : ''
-  )
+  const [error, setError] = useState('')
 
   useEffect(() => {
     window.scrollTo(0, 0)
-
     if (!sessionId) return
 
     fetch(`/api/get-session?session_id=${encodeURIComponent(sessionId)}`)
       .then(async (res) => {
         const data = await res.json()
         if (!res.ok) {
-          throw new Error(data.error || 'Impossible de confirmer le paiement')
+          throw new Error(data.error || t('success.confirmFailed'))
         }
         setSession(data)
       })
       .catch((err) => {
-        setError(err.message || 'Une erreur est survenue')
+        setError(err.message || t('success.genericError'))
       })
       .finally(() => setLoading(false))
+    // Fetch once per session — omit `t` so language switch does not refetch
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionId])
+
+  const displayError = error || (missingSession ? t('success.missingSession') : '')
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center text-center px-8 bg-ink pt-24">
       {loading ? (
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-red-sc border-t-transparent rounded-full animate-spin" />
-          <p className="text-muted text-sm tracking-widest uppercase">Confirmation en cours...</p>
+          <p className="text-muted text-sm tracking-widest uppercase">{t('success.loading')}</p>
         </div>
-      ) : error ? (
+      ) : displayError ? (
         <div className="max-w-lg">
           <h1 className="font-condensed font-black text-3xl uppercase text-cream mb-4">
-            Confirmation impossible
+            {t('success.errorTitle')}
           </h1>
-          <p className="text-red-400 text-sm leading-relaxed mb-8">{error}</p>
+          <p className="text-red-400 text-sm leading-relaxed mb-8">{displayError}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/contact"
               className="inline-block bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm transition-all duration-200 no-underline"
             >
-              Nous contacter
+              {t('success.contactUs')}
             </Link>
             <Link
               to="/"
               className="inline-block border border-white/20 text-cream font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm transition-all duration-200 no-underline"
             >
-              Accueil
+              {t('success.homeShort')}
             </Link>
           </div>
         </div>
@@ -69,44 +70,33 @@ export default function Success() {
           </div>
 
           <h1 className="font-condensed font-black text-4xl uppercase text-cream mb-4">
-            Paiement confirmé !
+            {t('success.title')}
           </h1>
 
-          <p className="text-muted text-sm leading-relaxed mb-8">
-            Merci pour votre abonnement Self Checks. Vous allez recevoir un email avec votre token d'activation pour créer votre compte sur l'application.
-          </p>
+          <p className="text-muted text-sm leading-relaxed mb-8">{t('success.message')}</p>
 
           {session?.alreadyExists && (
-            <p className="text-muted text-xs mb-6">
-              Votre accès était déjà activé. Voici à nouveau votre token.
-            </p>
+            <p className="text-muted text-xs mb-6">{t('success.alreadyExists')}</p>
           )}
 
           {session?.token && (
             <div className="bg-navy border border-red-sc/30 rounded-xl p-6 mb-8">
               <p className="text-[0.7rem] tracking-widest uppercase text-red-sc mb-2">
-                Votre token d'activation
+                {t('success.tokenLabel')}
               </p>
               <p className="font-condensed font-black text-2xl text-cream tracking-widest">
                 {session.token}
               </p>
-              <p className="text-muted text-xs mt-3 leading-relaxed">
-                Ce token vous a également été envoyé par email. Utilisez-le avec votre adresse email pour créer votre compte sur l'application Self Checks.
-              </p>
+              <p className="text-muted text-xs mt-3 leading-relaxed">{t('success.tokenHelp')}</p>
             </div>
           )}
 
           <div className="bg-navy/50 border border-white/10 rounded-xl p-6 mb-8 text-left">
             <h3 className="font-condensed font-bold text-sm uppercase tracking-widest text-cream mb-4">
-              Prochaines étapes
+              {t('success.nextStepsTitle')}
             </h3>
             <ol className="flex flex-col gap-3">
-              {[
-                'Vérifiez votre email pour votre token d\'activation',
-                'Cliquez sur le lien dans l\'email pour accéder à l\'application Self Checks',
-                'Créez votre compte avec votre email et votre token',
-                'Commencez votre auto-évaluation !',
-              ].map((step, i) => (
+              {t('success.nextSteps').map((step, i) => (
                 <li key={i} className="flex items-start gap-3 text-sm text-muted">
                   <span className="w-5 h-5 min-w-[1.25rem] bg-red-sc rounded-full flex items-center justify-center text-white text-xs font-bold">
                     {i + 1}
@@ -122,13 +112,13 @@ export default function Success() {
               to="/"
               className="inline-block bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm transition-all duration-200 no-underline hover:-translate-y-0.5"
             >
-              Retour à l'accueil
+              {t('success.home')}
             </Link>
             <Link
               to="/resiliation"
               className="inline-block border border-white/20 text-cream font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm transition-all duration-200 no-underline"
             >
-              Gérer mon abonnement
+              {t('success.manage')}
             </Link>
           </div>
         </div>
