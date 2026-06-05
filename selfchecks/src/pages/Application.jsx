@@ -310,7 +310,7 @@ export default function Application() {
 
         <div className="max-w-4xl mx-auto rounded-xl overflow-hidden border border-white/10">
             <video
-            src="/images/selfchecks2.mp4"
+            src="/images/demo.mp4"
             controls
             className="w-full h-full object-cover"
             
