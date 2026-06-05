@@ -41,9 +41,9 @@ const STEP_META = [
 ]
 
 const VIDEO_META = [
-  { key: 'why', thumb: '/images/athlete1.avif' },
+  { key: 'why', thumb: '/images/athlete1.avif', src: '/images/auto.mp4' },
   { key: 'product', thumb: '/images/athlete2.avif', src: '/images/selfchecks2.mp4' },
-  { key: 'testimonials', thumb: '/images/athlete3.avif' },
+  
 ]
 
 // ── Compteurs animés ──
