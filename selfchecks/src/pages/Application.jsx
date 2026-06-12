@@ -263,9 +263,9 @@ export default function Application() {
           className="mb-12"
         />
 
-        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
+        <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-6 justify-items-center">
           {videos.map(({ title, desc, thumb, src }, i) => (
-            <div key={i} className={`video-card reveal-d${i}`}>
+            <div key={i} className={`video-card reveal-d${i} w-full max-w-md`}>
               {/* Thumbnail */}
               <div className="relative aspect-video">
                 <video
