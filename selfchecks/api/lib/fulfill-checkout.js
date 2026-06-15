@@ -10,7 +10,7 @@ const PHP_API_URL =
   'https://recipeboard.alwaysdata.net/app/api_receive_paid_token.php'
 
 const APP_URL =
-  process.env.APP_URL || 'https://recipeboard.alwaysdata.net'
+  process.env.APP_URL || 'https://self-checks.fr'
 
 function buildToken(email, sessionId) {
   return crypto

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import { useTranslation } from '../i18n/useTranslation'
 
+const APP_URL = import.meta.env.VITE_APP_URL || 'https://self-checks.fr'
+
 export default function Success() {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
@@ -107,10 +109,18 @@ export default function Success() {
             </ol>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
+            <a
+              href={APP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm transition-all duration-200 no-underline hover:-translate-y-0.5"
+            >
+              {t('success.openApp')}
+            </a>
             <Link
               to="/"
-              className="inline-block bg-red-sc hover:bg-red-dark text-white font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm transition-all duration-200 no-underline hover:-translate-y-0.5"
+              className="inline-block border border-white/20 text-cream font-condensed font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm transition-all duration-200 no-underline"
             >
               {t('success.home')}
             </Link>
