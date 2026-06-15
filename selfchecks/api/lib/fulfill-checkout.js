@@ -34,43 +34,155 @@ function siteBaseUrl(req, explicitUrl) {
   return ''
 }
 
-function buildConfirmationEmailHtml({ token, siteUrl }) {
-  const resiliationUrl = siteUrl ? `${siteUrl}/resiliation` : '/resiliation'
+function buildConfirmationEmailHtml({ token, siteUrl, alreadyExists }) {
+  const resiliationUrl = siteUrl ? `${siteUrl}/resiliation` : null
+  const nextSteps = [
+    "Conservez cet email : votre token d'activation figure ci-dessous",
+    "Cliquez sur le bouton pour accéder à l'application Self Checks",
+    'Créez votre compte avec votre email et votre token',
+    'Commencez votre auto-évaluation !',
+  ]
 
-  return `
-    <div style="font-family:Arial,sans-serif;background:#0f172a;padding:40px;color:white">
-      <div style="max-width:600px;margin:auto;background:#111827;border-radius:16px;padding:40px;border:1px solid rgba(255,255,255,0.08)">
-        <div style="text-align:center;margin-bottom:30px">
-          <div style="width:80px;height:80px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:999px;display:flex;align-items:center;justify-content:center;margin:auto">
-            <span style="font-size:38px">✓</span>
-          </div>
-        </div>
-        <h1 style="text-align:center;font-size:36px;margin-bottom:20px">Paiement confirmé !</h1>
-        <p style="text-align:center;color:#cbd5e1;line-height:1.7;margin-bottom:35px">
-          Merci pour votre abonnement à SelfChecks. Votre accès à l'application est maintenant actif.
-        </p>
-        <div style="background:#1e293b;border:1px solid rgba(239,68,68,0.3);border-radius:14px;padding:25px;text-align:center;margin-bottom:35px">
-          <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#ef4444;margin-bottom:10px">
-            Votre token d'activation
-          </p>
-          <p style="font-size:32px;font-weight:bold;letter-spacing:4px;margin:0">${token}</p>
-          <p style="margin-top:15px;color:#cbd5e1;font-size:13px;line-height:1.6">
-            Utilisez ce token avec votre adresse email pour créer votre compte Self Checks.
-          </p>
-        </div>
-        <div style="text-align:center">
-          <a href="${APP_URL}" style="display:inline-block;background:#ef4444;color:white;padding:16px 32px;border-radius:10px;text-decoration:none;font-weight:bold;text-transform:uppercase;letter-spacing:1px">
-            Accéder à l'application
-          </a>
-        </div>
-        <div style="text-align:center;margin-top:16px">
-          <a href="${resiliationUrl}" style="display:inline-block;background:#111827;color:white;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:bold;text-transform:uppercase;letter-spacing:1px">
-            Gérer ou résilier mon abonnement
-          </a>
-        </div>
-      </div>
-    </div>
-  `
+  const stepsHtml = nextSteps
+    .map(
+      (step, i) => `
+        <tr>
+          <td style="vertical-align:top;padding:6px 12px 6px 0;width:28px">
+            <span style="display:inline-block;width:22px;height:22px;background:#e30613;color:#fff;border-radius:50%;text-align:center;line-height:22px;font-size:12px;font-weight:bold">${i + 1}</span>
+          </td>
+          <td style="vertical-align:top;padding:6px 0;color:#cbd5e1;font-size:14px;line-height:1.5">${step}</td>
+        </tr>`
+    )
+    .join('')
+
+  const alreadyExistsHtml = alreadyExists
+    ? `<p style="text-align:center;color:#94a3b8;font-size:13px;margin:0 0 24px">Votre accès était déjà activé. Voici à nouveau votre token.</p>`
+    : ''
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Self Checks — Paiement confirmé</title>
+  </head>
+  <body style="margin:0;padding:0;background:#0f172a;font-family:Arial,Helvetica,sans-serif;color:#f8fafc">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0f172a;padding:32px 16px">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#111827;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:32px">
+            <tr>
+              <td align="center" style="padding-bottom:24px">
+                <div style="width:72px;height:72px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:50%;line-height:72px;font-size:32px;color:#4ade80">&#10003;</div>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding-bottom:16px">
+                <h1 style="margin:0;font-size:28px;font-weight:bold;text-transform:uppercase;letter-spacing:1px">Paiement confirmé !</h1>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding-bottom:24px">
+                <p style="margin:0;color:#cbd5e1;font-size:15px;line-height:1.7">
+                  Merci pour votre abonnement Self Checks. Voici votre token d'activation pour créer votre compte sur l'application.
+                </p>
+              </td>
+            </tr>
+            ${alreadyExists ? `<tr><td>${alreadyExistsHtml}</td></tr>` : ''}
+            <tr>
+              <td style="padding-bottom:28px">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#1e293b;border:1px solid rgba(239,68,68,0.3);border-radius:14px;padding:24px">
+                  <tr>
+                    <td align="center">
+                      <p style="margin:0 0 10px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#ef4444">Votre token d'activation</p>
+                      <p style="margin:0;font-size:30px;font-weight:bold;letter-spacing:4px;color:#f8fafc">${token}</p>
+                      <p style="margin:14px 0 0;color:#cbd5e1;font-size:13px;line-height:1.6">
+                        Utilisez ce token avec votre adresse email pour créer votre compte Self Checks.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-bottom:28px">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:rgba(30,41,59,0.5);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px 24px">
+                  <tr>
+                    <td>
+                      <p style="margin:0 0 14px;font-size:13px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;color:#f8fafc">Prochaines étapes</p>
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${stepsHtml}</table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding-bottom:14px">
+                <a href="${APP_URL}" style="display:inline-block;background:#e30613;color:#ffffff;padding:16px 32px;border-radius:6px;text-decoration:none;font-weight:bold;text-transform:uppercase;letter-spacing:1px;font-size:13px">Accéder à l'application</a>
+              </td>
+            </tr>
+            ${
+              resiliationUrl
+                ? `<tr>
+              <td align="center" style="padding-bottom:24px">
+                <a href="${resiliationUrl}" style="display:inline-block;background:#1e293b;color:#f8fafc;padding:14px 28px;border-radius:6px;text-decoration:none;font-weight:bold;text-transform:uppercase;letter-spacing:1px;font-size:12px;border:1px solid rgba(255,255,255,0.15)">Gérer mon abonnement</a>
+              </td>
+            </tr>`
+                : ''
+            }
+            <tr>
+              <td align="center" style="padding-top:8px;border-top:1px solid rgba(255,255,255,0.08)">
+                <p style="margin:16px 0 0;color:#64748b;font-size:12px;line-height:1.6">
+                  Vous recevez cet email suite à votre paiement sur Self Checks.<br />
+                  Application : <a href="${APP_URL}" style="color:#94a3b8">${APP_URL}</a>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`
+}
+
+function buildConfirmationEmailText({ token, siteUrl, alreadyExists }) {
+  const resiliationUrl = siteUrl ? `${siteUrl}/resiliation` : null
+  const lines = [
+    'Self Checks — Paiement confirmé !',
+    '',
+    'Merci pour votre abonnement Self Checks. Voici votre token d\'activation pour créer votre compte sur l\'application.',
+    '',
+  ]
+
+  if (alreadyExists) {
+    lines.push('Votre accès était déjà activé. Voici à nouveau votre token.', '')
+  }
+
+  lines.push(
+    `Token d'activation : ${token}`,
+    '',
+    'Utilisez ce token avec votre adresse email pour créer votre compte Self Checks.',
+    '',
+    'Prochaines étapes :',
+    '1. Conservez cet email : votre token d\'activation figure ci-dessus',
+    '2. Accédez à l\'application Self Checks',
+    '3. Créez votre compte avec votre email et votre token',
+    '4. Commencez votre auto-évaluation !',
+    '',
+    `Accéder à l'application : ${APP_URL}`
+  )
+
+  if (resiliationUrl) {
+    lines.push(`Gérer mon abonnement : ${resiliationUrl}`)
+  }
+
+  lines.push(
+    '',
+    'Vous recevez cet email suite à votre paiement sur Self Checks.'
+  )
+
+  return lines.join('\n')
 }
 
 async function syncTokenToPhp(payload, phpApiSecret) {
@@ -149,12 +261,19 @@ async function fulfillCheckoutSession(session, options = {}) {
   const alreadyExists = Boolean(phpResult.body?.already_exists)
   const siteUrl = siteBaseUrl(req, explicitSiteUrl)
 
-  if (sendEmail && !alreadyExists && process.env.RESEND_API_KEY) {
+  if (sendEmail && process.env.RESEND_API_KEY) {
+    const fromAddress =
+      process.env.RESEND_FROM || 'Self Checks <selfchecks@palmierconsulting.click>'
+    const replyTo =
+      process.env.RESEND_REPLY_TO || 'stephane@palmierconsulting.fr'
+
     await resend.emails.send({
-      from: 'Self Checks <selfchecks@palmierconsulting.click>',
+      from: fromAddress,
       to: email,
-      subject: 'Votre accès Self Checks',
-      html: buildConfirmationEmailHtml({ token, siteUrl }),
+      reply_to: replyTo,
+      subject: 'Self Checks — Paiement confirmé, votre token d\'activation',
+      html: buildConfirmationEmailHtml({ token, siteUrl, alreadyExists }),
+      text: buildConfirmationEmailText({ token, siteUrl, alreadyExists }),
     })
   }
 

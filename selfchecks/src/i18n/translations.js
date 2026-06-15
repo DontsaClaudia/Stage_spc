@@ -294,15 +294,15 @@ export const fr = {
     genericError: 'Une erreur est survenue',
     title: 'Paiement confirmé !',
     message:
-      "Merci pour votre abonnement Self Checks. Vous allez recevoir un email avec votre token d'activation pour créer votre compte sur l'application.",
+      "Merci pour votre abonnement Self Checks. Votre token d'activation est affiché ci-dessous et vous a également été envoyé par email.",
     alreadyExists: 'Votre accès était déjà activé. Voici à nouveau votre token.',
     tokenLabel: "Votre token d'activation",
     tokenHelp:
       'Ce token vous a également été envoyé par email. Utilisez-le avec votre adresse email pour créer votre compte.',
     nextStepsTitle: 'Prochaines étapes',
     nextSteps: [
-      "Vérifiez votre email pour votre token d'activation",
-      "Cliquez sur le lien dans l'email pour accéder à l'application Self Checks",
+      "Conservez votre token d'activation affiché ci-dessus",
+      "Cliquez sur le bouton pour accéder à l'application Self Checks",
       'Créez votre compte avec votre email et votre token',
       'Commencez votre auto-évaluation !',
     ],
@@ -618,15 +618,15 @@ export const en = {
     genericError: 'An error occurred',
     title: 'Payment confirmed!',
     message:
-      'Thank you for subscribing to Self Checks. You will receive an email with your activation token.',
+      'Thank you for subscribing to Self Checks. Your activation token is shown below and was also sent by email.',
     alreadyExists: 'Your access was already active. Here is your token again.',
     tokenLabel: 'Your activation token',
     tokenHelp:
       'This token was also sent by email. Use it with your email address to create your account.',
     nextStepsTitle: 'Next steps',
     nextSteps: [
-      'Check your email for your activation token',
-      'Click the link in the email to access the Self Checks app',
+      'Keep your activation token shown above',
+      'Click the button to access the Self Checks app',
       'Create your account with your email and token',
       'Start your self-assessment!',
     ],
