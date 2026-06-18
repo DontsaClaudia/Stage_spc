@@ -251,17 +251,25 @@ async function fulfillCheckoutSession(session, options = {}) {
   const phpResult = await syncTokenToPhp(payload, phpApiSecret)
 
   if (!phpResult.ok) {
-    const err = new Error(
-      phpResult.body?.error || `Échec synchronisation PHP (${phpResult.status})`
-    )
-    err.phpStatus = phpResult.status
-    throw err
+    const phpError = phpResult.body?.error || ''
+    const isDuplicateToken =
+      phpError.includes('1062') &&
+      phpError.includes('uk_signup_tokens_token')
+
+    if (!isDuplicateToken) {
+      const err = new Error(
+        phpError || `Échec synchronisation PHP (${phpResult.status})`
+      )
+      err.phpStatus = phpResult.status
+      throw err
+    }
   }
 
-  const alreadyExists = Boolean(phpResult.body?.already_exists)
+  const alreadyExists =
+    Boolean(phpResult.body?.already_exists) || !phpResult.ok
   const siteUrl = siteBaseUrl(req, explicitSiteUrl)
 
-  if (sendEmail && process.env.RESEND_API_KEY) {
+  if (sendEmail && !alreadyExists && process.env.RESEND_API_KEY) {
     const fromAddress =
       process.env.RESEND_FROM || 'Self Checks <selfchecks@palmierconsulting.click>'
     const replyTo =
@@ -279,7 +287,7 @@ async function fulfillCheckoutSession(session, options = {}) {
 
   return {
     email,
-    token,
+    token: phpResult.body?.token || token,
     offre: session.metadata?.offre || null,
     alreadyExists,
   }

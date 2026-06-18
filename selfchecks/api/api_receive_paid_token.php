@@ -73,6 +73,22 @@ try {
         ]);
     }
 
+    $tokenCheck = $pdo->prepare(
+        'SELECT token FROM signup_tokens WHERE token = :token LIMIT 1'
+    );
+    $tokenCheck->execute([
+        ':token' => $input['token']
+    ]);
+    $existingToken = $tokenCheck->fetch(PDO::FETCH_ASSOC);
+
+    if ($existingToken) {
+        jsonResponse(200, [
+            'success' => true,
+            'already_exists' => true,
+            'token' => $existingToken['token']
+        ]);
+    }
+
     $stmt = $pdo->prepare("
         INSERT INTO signup_tokens
         (
@@ -111,7 +127,21 @@ try {
     ]);
 
 } catch (Throwable $e) {
+    $message = $e->getMessage();
+
+    if (
+        str_contains($message, '1062')
+        && str_contains($message, 'uk_signup_tokens_token')
+        && !empty($input['token'])
+    ) {
+        jsonResponse(200, [
+            'success' => true,
+            'already_exists' => true,
+            'token' => $input['token']
+        ]);
+    }
+
     jsonResponse(500, [
-        'error' => $e->getMessage()
+        'error' => $message
     ]);
 }

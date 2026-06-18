@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
-import { LanguageContext } from './languageContext'
+import { createContext, useEffect, useMemo, useState } from 'react'
 import { en, fr } from './translations'
 
 const STORAGE_KEY = 'selfchecks-lang'
 
 const dictionaries = { fr, en }
+
+export const LanguageContext = createContext(null)
 
 function getByPath(obj, path) {
   return path.split('.').reduce((acc, key) => acc?.[key], obj)

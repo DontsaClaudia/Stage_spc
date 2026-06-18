@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
-import { LanguageProvider } from './i18n/LanguageContext'
+import { LanguageProvider } from './i18n/LanguageContext.jsx'
 import './index.css'
 
 // ReactDOM.createRoot : crée l'application React dans la div #root de index.html
